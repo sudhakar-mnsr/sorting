@@ -14,10 +14,10 @@ import (
 func main() {
    var addr string
    flag.StringVar(&addr, "e", ":4040", "service address endpoint")
-   flage.Parse()
+   flag.Parse()
    
    // create local addr for socket
-   laddr, err := netResolveTCPAddr("tcp", addr)
+   laddr, err := net.ResolveTCPAddr("tcp", addr)
    if err != nil {
       fmt.Println(err)
       os.Exit(1)
