@@ -51,27 +51,86 @@ func main() {
 }
 
 func handleConnection(conn net.Conn) {
-defer func() {
-   if err := conn.Close(); err != nil {
-      log.Println("error closing connection:", err)
-   }
-}()
-if _, err := conn.Write([]byte("Connected...\nUsage: GET <currency, country, or code>\n")); err != nil {
-   log.Println("error writing:", err)
-   return
-}
-
-// appendBytes is a func that simulates eof marker error
-// since we will using streaming io on top of a streaming
-// protocol, there may never be an actual eof marker. so
-// this function simulates and io.EOF using \n
-
-appendBytes := func(dest, src []byte) ([]byte, error) {
-   for _, b := range src {
-      if b == '\n' {
-         return dest, io.EOF
+   defer func() {
+      if err := conn.Close(); err != nil {
+         log.Println("error closing connection:", err)
       }
-      dest = append(dest, b)
+   }()
+   if _, err := conn.Write([]byte("Connected...\nUsage: GET <currency, country, or code>\n")); err != nil {
+      log.Println("error writing:", err)
+      return
    }
-   return dest, nil
+   
+   // appendBytes is a func that simulates eof marker error
+   // since we will using streaming io on top of a streaming
+   // protocol, there may never be an actual eof marker. so
+   // this function simulates and io.EOF using \n
+   
+   appendBytes := func(dest, src []byte) ([]byte, error) {
+      for _, b := range src {
+         if b == '\n' {
+            return dest, io.EOF
+         }
+         dest = append(dest, b)
+      }
+      return dest, nil
+   }  
+   
+   // loop to stay connected with client until client breaks
+   for {
+      // buffer for client command
+      var cmdLine []byte
+      // stream data using 4-byte chunks until io.EOF (\n)
+      // The chunks are kept small to demonstrate streaming using io.Reader
+      for {
+         chunk := make([]byte, 4)
+         n, err := conn.Read(chunk)
+         if err != nil {
+            // io.EOF may never happen since this is a stream
+            if err == io.EOF {
+               cmdLine, _ = appendBytes(cmdLine, chunk[:n]) // read remaining
+               break
+            }
+            log.Println("connection read error:", err)
+            return
+         }
+         if cmdLine, err = appendBytes(cmdLine, chunk[:n]); err == io.EOF {
+            break
+         }
+      }
+      cmd, param := parseCommand(string(cmdLine))
+      if cmd == "" {
+         if _, err := conn.Write([]byte("Invalid command\n")); err != nil {
+            log.Println("failed to write:", err)
+            return
+         }
+         continue
+      }
+      // Execute command
+      switch strings.ToUpper(cmd) {
+      case "GET":
+         result := curr.Find(currencies, param)
+         if len(result) == 0 {
+            if _, err := conn.Write([]byte("Nothing found\n")); err != nil {
+               log.Println("failed to write", err)
+            }
+            continue
+         }
+         // send each currency info as a line to the client with fmt.Fprintf()
+         for _, cur := range result {
+            _, err := conn.Write([]byte(fmt.Sprintf("%s %s %s %s\n",
+                                 cur.Name, cur.Code, cur.Number, cur.Country,),
+            )) 
+            if err != nil {
+               log.Println("failed to write response:", err)
+               return
+            }
+         }
+      default:
+         if _, err := conn.Write([]byte("Invalid command\n")); err != nil {
+            log.Println("failed to write:", err)
+            return
+         }
+      }
+   }
 }  
