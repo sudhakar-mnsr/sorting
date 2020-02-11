@@ -53,3 +53,40 @@ func main() {
 		go handleConnection(conn)
 	}
 }
+
+func handleConnection(conn net.Conn) {
+	defer func() {
+		if err := conn.Close(); err != nil {
+			log.Println("error closing connection:", err)
+		}
+	}()
+
+	if _, err := fmt.Fprint(conn, "Connected...\nUsage: GET <currency, country, or code>\n"); err != nil {
+		log.Println("error writing:", err)
+		return
+	}
+
+	// buffered reader to stream data using 4-byte chunks until ('\n\')
+	// The chunks are kept small to demonstrate streaming using io.Reader.
+	reader := bufio.NewReaderSize(conn, 4)
+
+	// command-loop
+	for {
+		cmdLine, err := reader.ReadString('\n')
+		if err != nil {
+			if err != io.EOF {
+				log.Println("connection read error:", err)
+				return
+			}
+		}
+		reader.Reset(conn) //cleans buffer
+
+		cmd, param := parseCommand(cmdLine)
+		if cmd == "" {
+			if _, err := fmt.Fprint(conn, "Invalid command\n"); err != nil {
+				log.Println("failed to write:", err)
+				return
+			}
+			continue
+		}
+
