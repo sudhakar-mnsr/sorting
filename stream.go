@@ -144,3 +144,35 @@ func (s *Stream) bindOps() {
 		}
 	}
 }
+
+// initGraph initialize stream graph source + ops +
+func (s *Stream) initGraph() error {
+	util.Logfn(s.logf, "Initializing operators")
+
+	// setup source type
+	if err := s.setupSource(); err != nil {
+		return err
+	}
+
+	// setup sink type
+	if err := s.setupSink(); err != nil {
+		return err
+	}
+
+	// if there are no ops, link source to sink
+	if len(s.ops) == 0 && s.sink != nil {
+		util.Logfn(s.logf, "No operators in stream, binding source to sink directly")
+		s.sink.SetInput(s.source.GetOutput())
+		return nil
+	}
+
+	// link ops
+	s.bindOps()
+
+	// link last op to sink
+	if s.sink != nil {
+		s.sink.SetInput(s.ops[len(s.ops)-1].GetOutput())
+	}
+
+	return nil
+}
