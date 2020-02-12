@@ -92,3 +92,31 @@ func (s *Stream) Open() <-chan error {
 		s.drainErr(err)
 		return s.drain
 	}
+
+	util.Logfn(s.logf, "Opening stream")
+
+	// open stream
+	go func() {
+		// open source, if err bail
+		if err := s.source.Open(s.ctx); err != nil {
+			s.drainErr(err)
+			return
+		}
+		//apply operators, if err bail
+		for _, op := range s.ops {
+			if err := op.Exec(s.ctx); err != nil {
+				s.drainErr(err)
+				return
+			}
+		}
+
+		// open stream sink, after log sink is ready.
+		select {
+		case err := <-s.sink.Open(s.ctx):
+			util.Logfn(s.logf, "Closing stream")
+			s.drain <- err
+		}
+	}()
+
+	return s.drain
+}
