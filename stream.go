@@ -39,3 +39,16 @@ func New(src interface{}) *Stream {
 
 	return s
 }
+
+// WithContext sets a context.Context to use.
+func (s *Stream) WithContext(ctx context.Context) *Stream {
+	s.ctx = ctx
+	return s
+}
+
+// WithLogFunc sets a function that will receive internal log events
+// at runtime.  Supported log function type: func(interface{})
+func (s *Stream) WithLogFunc(fn api.LogFunc) *Stream {
+	s.logf = fn
+	return s
+}
