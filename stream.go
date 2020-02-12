@@ -176,3 +176,39 @@ func (s *Stream) initGraph() error {
 
 	return nil
 }
+
+// setupSource checks the source, setup the proper type or return err if problem
+func (s *Stream) setupSource() error {
+	if s.srcParam == nil {
+		return errors.New("stream missing source parameter")
+	}
+
+	// check specific type
+	switch src := s.srcParam.(type) {
+	case (api.Source):
+		s.source = src
+	case *os.File:
+		// assume csv
+		s.source = emitters.CSV(src)
+	case string:
+		// assume csv file name
+		s.source = emitters.CSV(src)
+	case io.Reader:
+		s.source = emitters.Reader(src)
+	}
+
+	// check on type kind
+	srcType := reflect.TypeOf(s.srcParam)
+	switch srcType.Kind() {
+	case reflect.Slice:
+		s.source = emitters.Slice(s.srcParam)
+	case reflect.Chan:
+		s.source = emitters.Chan(s.srcParam)
+	}
+
+	if s.source == nil {
+		return errors.New("invalid source")
+	}
+
+	return nil
+}
