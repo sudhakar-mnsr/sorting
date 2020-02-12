@@ -212,3 +212,42 @@ func (s *Stream) setupSource() error {
 
 	return nil
 }
+
+// setupSink checks the sink param, setup the proper type or return err if problem
+func (s *Stream) setupSink() error {
+	// if sink param is nil, use null collector
+	if s.snkParam == nil {
+		s.sink = collectors.Null()
+		return nil
+	}
+
+	// check specific type
+	switch snk := s.snkParam.(type) {
+	case api.Sink:
+		s.sink = snk
+	case string:
+		// assume csv file name
+		s.sink = collectors.CSV(snk)
+	case *os.File:
+		// assume csv file
+		s.sink = collectors.CSV(snk)
+	case io.Writer:
+		s.sink = collectors.Writer(snk)
+
+	default:
+		// check by type kind
+		srcType := reflect.TypeOf(s.snkParam)
+		switch srcType.Kind() {
+		case reflect.Slice:
+			s.sink = collectors.Slice()
+		case reflect.Chan:
+		}
+	}
+
+	if s.sink == nil {
+		return errors.New("invalid sink")
+	}
+
+	return nil
+}
+
