@@ -28,3 +28,14 @@ type Stream struct {
 	logf     api.LogFunc
 	errf     api.ErrorFunc
 }
+
+// New creates a new *Stream value
+func New(src interface{}) *Stream {
+	s := &Stream{
+		srcParam: src,
+		ops:      make([]api.Operator, 0),
+		drain:    make(chan error),
+	}
+
+	return s
+}
