@@ -52,3 +52,23 @@ func (s *Stream) WithLogFunc(fn api.LogFunc) *Stream {
 	s.logf = fn
 	return s
 }
+
+// WithErrorFunc sets a function of type func(StreamError) that will be
+// invoked when an operator indicates it wants to signal an error by
+// defining an operator function of the form func(data)error.
+func (s *Stream) WithErrorFunc(fn api.ErrorFunc) *Stream {
+	s.errf = fn
+	return s
+}
+
+// From sets the stream source to use
+//func (s *Stream) From(src api.StreamSource) *Stream {
+//	s.source = src
+//	return s
+//}
+
+// Into sets the terminal stream sink to use
+func (s *Stream) Into(snk interface{}) *Stream {
+	s.snkParam = snk
+	return s
+}
