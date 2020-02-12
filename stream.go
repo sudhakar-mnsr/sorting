@@ -120,3 +120,12 @@ func (s *Stream) Open() <-chan error {
 
 	return s.drain
 }
+// prepareContext setups internal context before
+// stream starts execution.
+func (s *Stream) prepareContext() {
+	if s.ctx == nil {
+		s.ctx = context.TODO()
+	}
+	s.ctx = autoctx.WithLogFunc(s.ctx, s.logf)
+	s.ctx = autoctx.WithErrorFunc(s.ctx, s.errf)
+}
