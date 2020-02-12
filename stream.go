@@ -72,3 +72,23 @@ func (s *Stream) Into(snk interface{}) *Stream {
 	s.snkParam = snk
 	return s
 }
+
+// ReStream takes upstream items of types []slice []array, map[T]
+// and emmits their elements as individual channel items to downstream
+// operations.  Items of other types are ignored.
+func (s *Stream) ReStream() *Stream {
+	sop := streamop.New()
+	s.ops = append(s.ops, sop)
+	return s
+}
+
+// Open opens the Stream which executes all operators nodes.
+// If there's an issue prior to execution, an error is returned
+// in the error channel.
+func (s *Stream) Open() <-chan error {
+	s.prepareContext() // ensure context is set
+
+	if err := s.initGraph(); err != nil {
+		s.drainErr(err)
+		return s.drain
+	}
