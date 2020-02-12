@@ -251,3 +251,6 @@ func (s *Stream) setupSink() error {
 	return nil
 }
 
+func (s *Stream) drainErr(err error) {
+	go func() { s.drain <- err }()
+}
