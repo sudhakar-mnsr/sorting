@@ -129,3 +129,18 @@ func (s *Stream) prepareContext() {
 	s.ctx = autoctx.WithLogFunc(s.ctx, s.logf)
 	s.ctx = autoctx.WithErrorFunc(s.ctx, s.errf)
 }
+
+// bindOps binds operator channels
+func (s *Stream) bindOps() {
+	util.Logfn(s.logf, "Binding operators")
+	if s.ops == nil {
+		return
+	}
+	for i, op := range s.ops {
+		if i == 0 { // link 1st to source
+			op.SetInput(s.source.GetOutput())
+		} else {
+			op.SetInput(s.ops[i-1].GetOutput())
+		}
+	}
+}
