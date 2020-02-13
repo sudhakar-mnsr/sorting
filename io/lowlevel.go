@@ -20,3 +20,16 @@ func main() {
     buffer := make([]byte, 10, 100)
 
     numread, err = syscall.Read(fd, buffer)
+    if err != nil {
+        fmt.Print(err.Error(), "\n")
+    }
+
+    fmt.Printf("Numbytes read: %d\n", numread)
+    fmt.Printf("Buffer: %b\n", buffer)
+
+    err = syscall.Close(fd)
+
+    if err != nil {
+        fmt.Print(err.Error(), "\n")
+    }
+}
