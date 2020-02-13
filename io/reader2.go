@@ -33,3 +33,11 @@ func (a *alphaReader) Read(p []byte) (int, error) {
 	}
 	return count, io.EOF
 }
+
+
+func main() {
+	str := strings.NewReader("Hello! Where is the sun?")
+	alpha := NewAlphaReader(str)
+	io.Copy(os.Stdout, alpha)
+	fmt.Println()
+}
