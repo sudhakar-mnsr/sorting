@@ -26,3 +26,12 @@ func (c *channelWriter) Write(p []byte) (int, error) {
    return len(p), nil
 }
 
+func main() {
+   cw := NewChannelWriter()
+   go func() {
+      fmt.Fprint(cw, "Stream me!")
+   }()
+   for c := range cw.Channel {
+      fmt.Printf("%c\n", c)
+   }
+}
