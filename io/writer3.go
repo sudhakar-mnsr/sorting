@@ -29,3 +29,20 @@ func (c *channelWriter) Write(p []byte) (int, error) {
    }()
    return len(p), nil
 }
+
+func main() {
+   cw := NewChannelWriter() 
+   file, err := os.Open("./writer2.go")
+   if err != nil {
+      fmt.Println("Error reading file:", err)
+      os.Exit(1)
+   }
+   _, err = io.Copy(cw, file)
+   if err != nil {
+      fmt.Println("Error copying:", err)
+      os.Exit(1)
+   }
+   for c := range cw.Channel {
+      fmt.Printf("%c\n", c)
+   }
+}
