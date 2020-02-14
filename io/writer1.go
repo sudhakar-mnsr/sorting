@@ -21,3 +21,12 @@ func (c channelWriter) Write(p []byte) (int, error) {
    <-wait
    return count, nil
 } 
+
+func main() {
+   data := []byte("Stream me!")
+   cw := channelWriter(make(chan byte, len(data)))
+   cw.Write(data)
+   for c := range cw {
+      fmt.Println(c)
+   }
+}
