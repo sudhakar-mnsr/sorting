@@ -14,3 +14,14 @@ func main() {
 
 	fout, err := os.Create("./filewrite.data")
 	writer := bufio.NewWriter(fout)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	defer fout.Close()
+
+	for _, row := range rows {
+		writer.WriteString(row)
+	}
+	writer.Flush()
+}
