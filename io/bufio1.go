@@ -16,3 +16,16 @@ func main() {
 	defer file.Close()
 
 	reader := bufio.NewReader(file)
+	for {
+		line, err := reader.ReadString('\n')
+		if err != nil {
+			if err == io.EOF {
+				break
+			} else {
+				fmt.Println("Error reading:, err")
+				return
+			}
+		}
+		fmt.Print(line)
+	}
+}
