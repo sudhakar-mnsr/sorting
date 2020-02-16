@@ -38,3 +38,12 @@ func main() {
 			Publisher:   "Addison-Wesley",
 			PublishDate: time.Date(2015, time.October, 26, 0, 0, 0, 0, time.UTC),
 		},
+		Book{
+			Title:       "Introducing Go",
+			PageCount:   124,
+			ISBN:        "978-1491941959",
+			Authors:     []Name{{"Caleb", "Doxsey"}},
+			Publisher:   "O'Reilly",
+			PublishDate: time.Date(2016, time.January, 0, 0, 0, 0, 0, time.UTC),
+		},
+	}
