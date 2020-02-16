@@ -30,3 +30,11 @@ func main() {
 			Publisher:   "Packt",
 			PublishDate: time.Date(2016, time.July, 0, 0, 0, 0, 0, time.UTC),
 		},
+		Book{
+			Title:       "The Go Programming Language",
+			PageCount:   380,
+			ISBN:        "9780134190440",
+			Authors:     []Name{{"Alan", "Donavan"}, {"Brian", "Kernighan"}},
+			Publisher:   "Addison-Wesley",
+			PublishDate: time.Date(2015, time.October, 26, 0, 0, 0, 0, time.UTC),
+		},
