@@ -15,3 +15,15 @@ data := []string{
 histogram := make(map[string]int)
 done := make(chan bool)
 
+go func() {
+   for _, line := range data {
+      words := strings.Split(line, " ")
+      for _, word := range words {
+         word = strings.ToLower(word)
+         histogram[word]++
+      }
+   }
+   done <- true
+}() 
+
+
