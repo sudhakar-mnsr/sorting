@@ -20,7 +20,7 @@ func main() {
    }
    
    for k, v := range histogram {
-      fmt.Println("%s\t(%d)\n", k, v)
+      fmt.Printf("%s\t(%d)\n", k, v)
    }
 }
 
