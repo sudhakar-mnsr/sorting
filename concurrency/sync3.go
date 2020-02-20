@@ -21,3 +21,12 @@ func (s *Service) Start() {
    }()
 }
  
+func (s *Service) Stop() {
+   s.Lock()
+   defer s.Unlock()
+   if s.started {
+      s.started = false
+      close(s.stpCh)
+   }
+}
+
