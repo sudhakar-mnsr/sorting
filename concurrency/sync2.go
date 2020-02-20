@@ -29,3 +29,10 @@ func (s *Service) Stop() {
       close(s.stpCh)
    }
 }
+
+func main() {
+   s := &Service{}
+   s.Start()
+   time.Sleep(time.Second)
+   s.Stop()
+}
