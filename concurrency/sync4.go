@@ -25,3 +25,21 @@ func (s *Service) Start() {
       <-stpCh
    }()
 }
+
+func (s *Service) Stop() {
+   s.mutex.RLock()
+   msg := s.cache[id]
+   s.mutex.RUnlock()
+   if msg != "" {
+      fmt.Println(msg)
+   } else {
+      fmt.Println("Hello, goodbye!")
+   }
+}
+
+func main() {
+   s := &Service{}
+   s.Start()
+   s.Serve(3)
+   s.Stop()
+}
