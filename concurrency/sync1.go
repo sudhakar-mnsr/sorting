@@ -15,3 +15,17 @@ func (s *Service) Start{} {
    }()
 }
 
+
+func (s *Service) Stop() {
+   if s.started {
+      s.started = false
+      close(s.stpCh)
+   }
+}
+
+func main() {
+   s := &Service{}
+   s.Start()
+   time.Sleep(time.Second)
+   s.Stop()
+}
