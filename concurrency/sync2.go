@@ -20,3 +20,12 @@ func (s *Service) Start() {
       <-s.stpCh
    }()
 }
+
+func (s *Service) Stop() {
+   s.mutex.Lock()
+   defer s.mutex.Unlock()
+   if s.started {
+      s.started = false
+      close(s.stpCh)
+   }
+}
