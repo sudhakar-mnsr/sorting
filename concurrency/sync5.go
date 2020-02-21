@@ -14,3 +14,12 @@ func main() {
 	result := make(chan int, 2)
 	var wg sync.WaitGroup
 	wg.Add(2)
+
+	go func() { // gen multiple of 3 & 5 values
+		for i := 1; i < MAX; i++ {
+			if (i%3) == 0 || (i%5) == 0 {
+				values <- i // push downstream
+			}
+		}
+		close(values)
+	}()
