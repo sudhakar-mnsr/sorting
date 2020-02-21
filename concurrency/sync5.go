@@ -8,3 +8,9 @@ import (
 )
 
 const MAX = 1000
+
+func main() {
+	values := make(chan int, MAX)
+	result := make(chan int, 2)
+	var wg sync.WaitGroup
+	wg.Add(2)
