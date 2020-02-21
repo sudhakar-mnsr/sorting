@@ -9,3 +9,8 @@ import (
 
 const MAX = 1000
 const workers = 2
+
+func main() {
+	values := make(chan int)
+	result := make(chan int, workers)
+	var wg sync.WaitGroup
