@@ -32,3 +32,12 @@ func main() {
 		}
 		result <- r
 	}
+	// distribute work to two goroutines
+	go work()
+	go work()
+
+	wg.Wait()                    // wait for both groutines
+	total := <-result + <-result // gather partial results
+	fmt.Println("Total:", total)
+}
+
