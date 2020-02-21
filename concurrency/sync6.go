@@ -36,3 +36,12 @@ func main() {
 	for i := 0; i < workers; i++ {
 		go work() // execute on its own thread
 	}
+
+	wg.Wait() // wait for both groutines
+	close(result)
+	total := 0
+	for pr := range result {
+		total += pr
+	}
+	fmt.Println("Total:", total)
+}
