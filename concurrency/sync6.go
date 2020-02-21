@@ -23,3 +23,11 @@ func main() {
 		}
 		close(values)
 	}()
+	work := func() { // work unit, calc partial result
+		defer wg.Done()
+		r := 0
+		for i := range values {
+			r += i
+		}
+		result <- r
+	}
