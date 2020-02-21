@@ -31,3 +31,8 @@ func main() {
 		}
 		result <- r
 	}
+
+	wg.Add(workers)
+	for i := 0; i < workers; i++ {
+		go work() // execute on its own thread
+	}
