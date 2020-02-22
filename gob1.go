@@ -26,3 +26,14 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+
+	var books []Book
+	dec := gob.NewDecoder(file)
+	if err := dec.Decode(&books); err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(books)
+
+}
