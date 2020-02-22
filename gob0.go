@@ -47,3 +47,14 @@ func main() {
 			PublishDate: time.Date(2016, time.January, 0, 0, 0, 0, 0, time.UTC),
 		},
 	}
+
+	file, err := os.Create("book.dat")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	enc := gob.NewEncoder(file)
+	if err := enc.Encode(books); err != nil {
+		fmt.Println(err)
+	}
+}
