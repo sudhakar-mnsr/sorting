@@ -28,3 +28,19 @@ func main() {
       Email{Kind: "Work", Address: "jan.manukonda@boxhill.edu.au"}}}
    saveJSON(person.json", person)
 }
+
+func saveJSON(fileName string, key interface{}) {
+   outFile, err := os.Create(filename)
+   checkError(err)
+   encoder := json.NewEncoder(outFile)
+   err = encoder.Encode(key)
+   checkError(err)
+   outFile.Close()
+}
+
+func checkError(err error) {
+   if err != nil {
+      fmt.Println("Fatal error ", err.Error())
+      os.Exit(1)
+   }
+}
