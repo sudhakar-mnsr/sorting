@@ -4,6 +4,7 @@ import (
    "encoding/asn1"
    "fmt"
    "os"
+   "time"
 )
 
 func main() {
@@ -22,8 +23,17 @@ func main() {
    var newstr string
    asn1.Unmarshal(msdata, &newstr)
 
+   t := time.Now()
+   mtdata, err := asn1.Marshal(t)
+   
+   var newtime = new(time.Time)
+   // _, err2 := asn1.Unmarshal(newtime, mtdata)
+   _, err2 := asn1.Unmarshal(mtdata, newtime)
+   checkError(err2)
+
    fmt.Println("After marshal/unmarshal: ", n)
    fmt.Println("After marshal/unmarshal: ", newstr)
+   fmt.Println("After marshal/unmarshal: ", newtime)
 }
 
 func checkError(err error) {
