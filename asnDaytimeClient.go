@@ -23,3 +23,11 @@ func main() {
    result, err := readFully(conn)
    checkError(err)
 
+   var newtime time.Time
+   _, err1 := asn1.Unmarshal(result, &newtime)
+   checkError(err1)
+
+   fmt.Println("After marshal/unmarshal: ", newtime.String())
+
+   os.Exit(0)
+}
