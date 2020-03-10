@@ -33,10 +33,10 @@ func (p Person) String() string {
 }
 
 func main() {
-   person := Person{
-      Name: Name{Family: "Newmarch", Personal: "Jan"},
-      Email: []Email{Email{Kind: "home", Address: "jan@newmarch.name"},
-                     Email{Kind: "work", Address: "j.newmarch@ms.com"}}}
+   clientPerson := Person{
+      Name: Name{Family: "Client", Personal: "Jan"},
+      Email: []Email{Email{Kind: "home", Address: "jan@client.name"},
+                     Email{Kind: "work", Address: "j.newmarch@client.com"}}}
    if len(os.Args) != 2 {
       fmt.Println("Usage: ", os.Args[0], "host:port")
       os.Exit(1)
@@ -50,10 +50,10 @@ func main() {
    decoder := json.NewDecoder(conn)
 
    for n := 0; n < 10; n++ {
-      encoder.Encode(person)
-      var newPerson person
-      decoder.Decode(&newPerson)
-      fmt.Println(newPerson.String())
+      encoder.Encode(clientPerson)
+      var serverPerson Person
+      decoder.Decode(&serverPerson)
+      fmt.Println(serverPerson.String())
    }
    os.Exit(0)
 }

@@ -32,6 +32,10 @@ func (p Person) String() string {
 
 func main() {
    service := "0.0.0.0:1200"
+   serverPerson := Person{
+      Name: Name{Family: "Server", Personal: "Jan"},
+      Email: []Email{Email{Kind: "home", Address: "jan@server.name"},
+                     Email{Kind: "work", Address: "j.newmarch@server.com"}}}
    tcpAddr, err := net.ResolveTCPAddr("tcp", service)
    checkError(err)
 
@@ -47,10 +51,10 @@ func main() {
       decoder := json.NewDecoder(conn)
 
       for n := 0; n < 10; n++ {
-         var person Person
-         decoder.Decode(&person)
-         fmt.Println(person.String())
-         encoder.Encode(person)
+         var clientPerson Person
+         decoder.Decode(&clientPerson)
+         fmt.Println(clientPerson.String())
+         encoder.Encode(serverPerson)
       }
       conn.Close()
    }
