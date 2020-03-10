@@ -1,10 +1,8 @@
 package main
 
 import (
-        "bytes"
         "encoding/gob"
         "fmt"
-        "io"
         "net"
         "os"
 )
