@@ -50,7 +50,7 @@ func main() {
    decoder := gob.NewDecoder(conn)
 
    for n := 0; n < 10; n++ {
-      encoder.Encode(person)
+      encoder.Encode(clientPerson)
       var newPerson Person
       decoder.Decode(&newPerson)
       fmt.Println(newPerson.String())
@@ -58,7 +58,7 @@ func main() {
    os.Exit(0)
 }
 
-func checkError(err error)
+func checkError(err error) {
    if err != nil {
       fmt.Println("Fatal error ", err.Error())
       os.Exit(1)
