@@ -26,7 +26,7 @@ func main() {
    fmt.Println("Address is ", addr.String(),
                "\nMask length is ", bits,
                "\nLeading ones count is ", ones,
-               "\nMask is (hex) " mask.String(),
+               "\nMask is (hex) ", mask.String(),
                "\nNetwork is ", network.String())
    os.Exit(0)
 }
