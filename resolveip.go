@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-   if len(os.Args != 2 {
+   if len(os.Args) != 2 {
       fmt.Fprintf(os.Stderr, "Usage: %s hostname\n", os.Args[0])
       fmt.Println("Usage: ", os.Args[0], "hostname")
       os.Exit(1)
@@ -19,6 +19,6 @@ func main() {
       fmt.Println("Resolution error", err.Error())
       os.Exit(1)
    }
-   fmt.Println("Resolved address is " addr.String())
+   fmt.Println("Resolved address is ", addr.String())
    os.Exit(0)
 }
