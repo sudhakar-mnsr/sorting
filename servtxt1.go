@@ -127,3 +127,12 @@ func handleConnection(conn net.Conn) {
 				break
 			}
 		}
+
+		cmd, param := parseCommand(string(cmdLine))
+		if cmd == "" {
+			if _, err := conn.Write([]byte("Invalid command\n")); err != nil {
+				log.Println("failed to write:", err)
+				return
+			}
+			continue
+		}
