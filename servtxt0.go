@@ -90,3 +90,26 @@ func handleConnection(conn net.Conn) {
 		log.Println("error writing:", err)
 		return
 	}
+		// execute command
+		switch strings.ToUpper(cmd) {
+		case "GET":
+			result := curr.Find(currencies, param)
+			if len(result) == 0 {
+				if _, err := conn.Write([]byte("Nothing found\n")); err != nil {
+					log.Println("failed to write:", err)
+				}
+				continue
+			}
+			// send each currency info as a line to the client wiht fmt.Fprintf()
+			for _, cur := range result {
+				_, err := conn.Write([]byte(
+					fmt.Sprintf(
+						"%s %s %s %s\n",
+						cur.Name, cur.Code, cur.Number, cur.Country,
+					),
+				))
+				if err != nil {
+					log.Println("failed to write response:", err)
+					return
+				}
+			}
