@@ -178,3 +178,21 @@ func parseCommand(cmdLine string) (cmd, param string) {
 	param = strings.TrimSpace(parts[1])
 	return
 }
+
+	// loop to stay connected with client until client breaks connection
+	for {
+		// buffer for client command
+		cmdLine := make([]byte, (1024 * 4))
+		n, err := conn.Read(cmdLine)
+		if n == 0 || err != nil {
+			log.Println("connection read error:", err)
+			return
+		}
+		cmd, param := parseCommand(string(cmdLine[0:n]))
+		if cmd == "" {
+			if _, err := conn.Write([]byte("Invalid command\n")); err != nil {
+				log.Println("failed to write:", err)
+				return
+			}
+			continue
+		}
