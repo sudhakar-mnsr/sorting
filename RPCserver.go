@@ -57,4 +57,13 @@ func main() {
       fmt.Println(err)
       os.Exit(100)
    }
+
+   for {
+      c, err := l.Accept()
+      if err != nil {
+         continue
+      }
+      rpc.Serveconn(c)
+   }
 }
+
