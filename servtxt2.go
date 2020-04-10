@@ -142,3 +142,11 @@ func handleConnection(conn net.Conn) {
 					return
 				}
 			}
+		default:
+			if _, err := fmt.Fprintf(conn, "Invalid command\n"); err != nil {
+				log.Println("failed to write:", err)
+				return
+			}
+		}
+	}
+}
