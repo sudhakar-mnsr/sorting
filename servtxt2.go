@@ -82,3 +82,15 @@ func main() {
 		go handleConnection(conn)
 	}
 }
+
+func handleConnection(conn net.Conn) {
+	defer func() {
+		if err := conn.Close(); err != nil {
+			log.Println("error closing connection:", err)
+		}
+	}()
+
+	if _, err := fmt.Fprint(conn, "Connected...\nUsage: GET <currency, country, or code>\n"); err != nil {
+		log.Println("error writing:", err)
+		return
+	}
