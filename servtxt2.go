@@ -118,3 +118,14 @@ func handleConnection(conn net.Conn) {
 			}
 			continue
 		}
+
+		// execute command
+		switch strings.ToUpper(cmd) {
+		case "GET":
+			result := curr.Find(currencies, param)
+			if len(result) == 0 {
+				if _, err := fmt.Fprint(conn, "Nothing found\n"); err != nil {
+					log.Println("failed to write:", err)
+				}
+				continue
+			}
