@@ -94,3 +94,18 @@ func handleConnection(conn net.Conn) {
 		log.Println("error writing:", err)
 		return
 	}
+
+	// buffered reader to stream data using 4-byte chunks until ('\n\')
+	// The chunks are kept small to demonstrate streaming using io.Reader.
+	reader := bufio.NewReaderSize(conn, 4)
+
+	// command-loop
+	for {
+		cmdLine, err := reader.ReadString('\n')
+		if err != nil {
+			if err != io.EOF {
+				log.Println("connection read error:", err)
+				return
+			}
+		}
+		reader.Reset(conn) //cleans buffer
