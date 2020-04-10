@@ -109,3 +109,12 @@ func handleConnection(conn net.Conn) {
 			}
 		}
 		reader.Reset(conn) //cleans buffer
+
+		cmd, param := parseCommand(cmdLine)
+		if cmd == "" {
+			if _, err := fmt.Fprint(conn, "Invalid command\n"); err != nil {
+				log.Println("failed to write:", err)
+				return
+			}
+			continue
+		}
