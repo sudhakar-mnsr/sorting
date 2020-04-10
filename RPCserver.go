@@ -20,7 +20,7 @@ func (t *MyInterface) Add(arguments *sharedRPC.MyInts, reply *int) error {
       s2 = -1
    }
 
-   *reply = s1 * int(arguments.S1) + s2 * int(arguments.S2)
+   *reply = s1 * int(arguments.A1) + s2 * int(arguments.A2)
    return nil
 }
 
