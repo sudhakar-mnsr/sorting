@@ -39,3 +39,22 @@ func (t *MyInterface) Sub(arguments *sharedRPC.MyInts, reply *int) error {
    *reply = s1 * int(arguments.A1) - s2 * (arguments.A2)
    return nil
 }
+
+func main() {
+   PORT := ":1234"
+
+   myInterface := new(MyInterface)
+   rpc.Register(myInterface)
+
+   t, err := net.ResolveTCPAddr("tcp", PORT)
+   if err != nil {
+      fmt.Println(err)
+      os.Exit(100)
+   }
+
+   l, err := net.ListenTCP("tcp", t)
+   if err != nil {
+      fmt.Println(err)
+      os.Exit(100)
+   }
+}
