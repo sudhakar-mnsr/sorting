@@ -105,3 +105,14 @@ func handleConnection(conn net.Conn) {
 			log.Println("failed to unmarshal request:", err)
 			return
 		}
+
+		// search currencies, result is []curr.Currency
+		result := curr.Find(currencies, req.Get)
+
+		// encode result to JSON array
+		if err := enc.Encode(&result); err != nil {
+			log.Println("failed to encode data:", err)
+			return
+		}
+	}
+}
