@@ -96,3 +96,16 @@ func handleConnection(conn net.Conn) {
 	}()
 
 	reader := bufio.NewReaderSize(conn, 4)
+
+	// command-loop
+	for {
+		// reader will read bytes until '}' is encounter which
+		// should indicate the end of the JSON object i.e. {"get":"Haiti"}
+		buf, err := reader.ReadSlice('}')
+		if err != nil {
+			if err != io.EOF {
+				log.Println("connection read error:", err)
+				return
+			}
+		}
+		reader.Reset(conn)
