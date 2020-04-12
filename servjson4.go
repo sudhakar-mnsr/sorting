@@ -8,11 +8,11 @@ import (
 	"net"
 	"os"
 
-	curr "github.com/vladimirvivien/go-networking/currency/lib"
+	curr "currency"
 )
 
 var (
-	currencies = curr.Load("../data.csv")
+	currencies = curr.Load("./data.csv")
 
 // This program implements a simple currency lookup service
 // over TCP or Unix Data Socket. It loads ISO currency
