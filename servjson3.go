@@ -86,3 +86,13 @@ func main() {
 		go handleConnection(conn)
 	}
 }
+
+// handle client connection
+func handleConnection(conn net.Conn) {
+	defer func() {
+		if err := conn.Close(); err != nil {
+			log.Println("error closing connection:", err)
+		}
+	}()
+
+	reader := bufio.NewReaderSize(conn, 4)
