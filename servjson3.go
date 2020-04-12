@@ -122,3 +122,12 @@ func handleConnection(conn net.Conn) {
 				log.Println("failed to marshal CurrencyError:", jerr)
 				continue
 			}
+			if _, werr := conn.Write(cerr); werr != nil {
+				log.Println("failed to write to CurrencyError:", werr)
+				return
+			}
+			continue
+		}
+
+		// search currencies, result is []curr.Currency
+		result := curr.Find(currencies, req.Get)
