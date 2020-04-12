@@ -143,3 +143,11 @@ func handleConnection(conn net.Conn) {
 			}
 			continue
 		}
+
+		// write response to client
+		if _, err := conn.Write(rsp); err != nil {
+			log.Println("failed to write response:", err)
+			return
+		}
+	}
+}
