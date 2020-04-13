@@ -23,3 +23,13 @@ main()
 		fprintf (stderr, "open failed.\n");
 		exit (-1);
 	}
+
+	/*
+	 * bind any address to us.
+	 */
+	bzero((char *) &my_addr, sizeof(my_addr));
+	my_addr.sin_family      = AF_INET;
+	my_addr.sin_addr.s_addr = htonl (INADDR_ANY);
+	my_addr.sin_port        = htons(0);
+
+	fd = net_bind (fd, &my_addr, sizeof (struct sockaddr_in));
