@@ -33,3 +33,17 @@ main()
 	my_addr.sin_port        = htons(0);
 
 	fd = net_bind (fd, &my_addr, sizeof (struct sockaddr_in));
+
+	/*
+	 * set up server's address
+	 */
+	bzero((char *) &serv_addr, sizeof(serv_addr));
+	serv_addr.sin_family      = AF_INET;
+	serv_addr.sin_addr.s_addr = inet_addr (SERV_HOST_ADDR);
+	serv_addr.sin_port        = htons(SERV_TCP_PORT);
+
+	echo_driver (fd, &serv_addr);
+	close (fd);
+
+	exit (0);
+}
