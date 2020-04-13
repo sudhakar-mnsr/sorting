@@ -49,3 +49,15 @@ net_bind (int fd, void *addr, int addrlen)
 
 	ctlbuf.len = sizeof (struct T_bind_req) + addrlen;
 	ctlbuf.buf = (char *) &bind_req;
+
+	if (putmsg (fd, &ctlbuf, NULL, 0) < 0)
+	{
+		return (-1);
+	}
+	/*
+	 * Wait for acknowledgement
+	 */
+	ctlbuf.maxlen = sizeof (union T_primitives);
+	ctlbuf.len = 0;
+	ctlbuf.buf = (char *) &rcvbuf;
+	flags = RS_HIPRI;
