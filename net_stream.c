@@ -121,3 +121,12 @@ net_send (int fd, char *buf, int len, char *to_addr, int addrlen)
 
 	ctlbuf.len = sizeof (struct T_unitdata_req) + addrlen;
 	ctlbuf.buf = (char *) &netdata;
+
+	databuf.len = len;
+	databuf.buf = buf;
+
+	if (putmsg (fd, &ctlbuf, &databuf, 0) < 0)
+		return (0);
+	free (netdata.buf);
+	return (len);
+}
