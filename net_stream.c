@@ -113,3 +113,11 @@ net_send (int fd, char *buf, int len, char *to_addr, int addrlen)
 	netdata.unitdata_req.PRIM_type = T_UNITDATA_REQ;
 	netdata.unitdata_req.DEST_length = addrlen;
 	netdata.unitdata_req.DEST_offset = sizeof (struct T_unitdata_req);
+	/* 
+	 * for now, presume no options.
+	 */
+	netdata.unitdata_req.OPT_length = 0;
+	netdata.unitdata_req.OPT_offset = 0;
+
+	ctlbuf.len = sizeof (struct T_unitdata_req) + addrlen;
+	ctlbuf.buf = (char *) &netdata;
