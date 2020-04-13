@@ -98,3 +98,18 @@ net_bind (int fd, void *addr, int addrlen)
 	}
 	return (-1);
 }
+
+int
+net_send (int fd, char *buf, int len, char *to_addr, int addrlen)
+{
+	struct strbuf ctlbuf;
+	struct strbuf databuf;
+	struct {
+		struct T_unitdata_req unitdata_req;
+		char buf[128];
+	} netdata;
+
+	bcopy (to_addr, netdata.buf, addrlen);
+	netdata.unitdata_req.PRIM_type = T_UNITDATA_REQ;
+	netdata.unitdata_req.DEST_length = addrlen;
+	netdata.unitdata_req.DEST_offset = sizeof (struct T_unitdata_req);
