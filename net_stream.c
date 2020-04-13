@@ -41,3 +41,11 @@ net_bind (int fd, void *addr, int addrlen)
 		fprintf (stderr, "No address\n");
 		return (-1);
 	}
+	bind_req.msg_hdr.PRIM_type = T_BIND_REQ;
+	bind_req.msg_hdr.ADDR_length = addrlen;
+	bind_req.msg_hdr.ADDR_offset = sizeof (struct T_bind_req);
+	bind_req.msg_hdr.CONIND_number = 5;
+	bcopy (addr, bind_req.addr, addrlen);
+
+	ctlbuf.len = sizeof (struct T_bind_req) + addrlen;
+	ctlbuf.buf = (char *) &bind_req;
