@@ -91,3 +91,10 @@ net_bind (int fd, void *addr, int addrlen)
 			error_ack->UNIX_error);
 		errno = error_ack->UNIX_error;
 		break;
+	    default:
+		fprintf (stderr, "No ack from bind?\n");
+		errno = EPROTO;
+		break;
+	}
+	return (-1);
+}
