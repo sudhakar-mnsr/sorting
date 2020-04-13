@@ -167,3 +167,17 @@ net_recv (int fd, char *buf, int len, char *from_addr, int addrlen)
 		errno = EIO;
 		return (0);
 	}
+
+	/*
+	 * Copy return address for the user
+	 */
+	if (netdata.unitdata_ind.SRC_length < addrlen)
+		addrlen = netdata.unitdata_ind.SRC_length;
+
+	c = (char *) &netdata;
+	bcopy (&(c[netdata.unitdata_ind.SRC_offset]),
+		from_addr,
+		addrlen);
+
+	return (databuf.len);
+}
