@@ -61,3 +61,15 @@ net_bind (int fd, void *addr, int addrlen)
 	ctlbuf.len = 0;
 	ctlbuf.buf = (char *) &rcvbuf;
 	flags = RS_HIPRI;
+	if (getmsg (fd, &ctlbuf, NULL, &flags) < 0)
+	{
+		perror ("getmsg");
+		return (-1);
+	}
+
+	if (ctlbuf.len < sizeof (long))
+	{
+		fprintf (stderr, "Bad length from getmsg.\n");
+		errno = EPROTO;
+		return (-1);
+	}
