@@ -152,3 +152,18 @@ net_recv (int fd, char *buf, int len, char *from_addr, int addrlen)
 	databuf.buf = buf;
 
 	flags = 0;
+
+	if ((retval = getmsg (fd, &ctlbuf, &databuf, &flags)) < 0)
+		return (-1);
+
+	if (netdata.unitdata_ind.PRIM_type != T_UNITDATA_IND)
+	{
+		fprintf (stderr, "net_recv: Got %d\n", netdata.unitdata_ind.PRIM_type);
+		errno = EPROTO;
+		return (0);
+	}
+	if (retval)
+	{
+		errno = EIO;
+		return (0);
+	}
