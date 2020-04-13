@@ -73,3 +73,21 @@ net_bind (int fd, void *addr, int addrlen)
 		errno = EPROTO;
 		return (-1);
 	}
+
+	switch (rcvbuf.type)
+	{
+	    case T_BIND_ACK:
+		return (fd);
+	    case T_ERROR_ACK:
+		if (ctlbuf.len < sizeof (struct T_error_ack))
+		{
+			errno = EPROTO;
+			return (-1);
+		}
+		error_ack = (struct T_error_ack *) &rcvbuf;
+		fprintf (stderr, "Error ack from bind (%d %d %d)\n",
+			error_ack->ERROR_prim,
+			error_ack->TLI_error,
+			error_ack->UNIX_error);
+		errno = error_ack->UNIX_error;
+		break;
