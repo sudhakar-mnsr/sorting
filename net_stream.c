@@ -130,3 +130,25 @@ net_send (int fd, char *buf, int len, char *to_addr, int addrlen)
 	free (netdata.buf);
 	return (len);
 }
+
+int
+net_recv (int fd, char *buf, int len, char *from_addr, int addrlen)
+{
+	struct strbuf ctlbuf;
+	struct strbuf databuf;
+	struct {
+		struct T_unitdata_ind unitdata_ind;
+		char buf[128];
+	} netdata;
+	char *c;
+	int retval;
+	int flags;
+
+	ctlbuf.maxlen = sizeof (netdata);
+	ctlbuf.buf = (char *) &netdata;
+
+	databuf.maxlen = len;
+	databuf.len = 0;
+	databuf.buf = buf;
+
+	flags = 0;
