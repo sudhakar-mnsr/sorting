@@ -47,3 +47,21 @@ main()
 
 	exit (0);
 }
+
+void
+echo_driver(int fd, struct sockaddr_in *serv_addr)
+{
+	char buf[512];
+	int n;
+	struct sockaddr_in	fm_addr;
+
+	while ((n = read (0, buf, sizeof (buf))) != 0)
+	{
+		net_send (fd, buf, n, serv_addr, sizeof (struct sockaddr_in));
+
+		n = net_recv (fd, buf, sizeof (buf), &fm_addr, sizeof (struct sockaddr_in));
+
+		write (1, buf, n);
+	}
+	return;
+}
