@@ -27,3 +27,21 @@ main()
 	echo_serv (fd);
 	exit (0);	/* not reached */
 }
+
+
+void
+echo_serv (int fd)
+{
+	struct sockaddr_in	fm_addr;
+	char			buf[512];
+	int			n;
+
+	while (1)
+	{
+		n = net_recv (fd, buf, sizeof (buf),
+				&fm_addr, sizeof (struct sockaddr_in));
+
+		net_send (fd, buf, n,
+				&fm_addr, sizeof (struct sockaddr_in));
+	}
+}
