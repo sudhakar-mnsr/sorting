@@ -28,3 +28,16 @@ cattostream(int fd)
      totrd = totwr = 0;
      ridx = widx = 0;
      flowctl = 0;
+
+     for (;;) {
+         if ((n = doread(fd)) == 0) {
+             /*
+              * End of file; finish writing.
+              */
+             finwrite();
+             break;
+         } else if (n < 0) {
+             /*
+              * Read was interrupted by SIGPOLL.
+              */
+             continue;
