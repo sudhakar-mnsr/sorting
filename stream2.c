@@ -18,3 +18,11 @@ getack(int fd)
      ctl.maxlen = sizeof(struct data_ack);
      ret = getmsg(fd, &ctl, NULL, &fl);
      if (ret != 0) {
+         /*
+          * ret shouldn't be greater than 0, but if it
+          * is, then the message was improperly formed.
+          */
+         if (ret > 0)
+             errno = EPROTO;
+         return(-1);
+     }
