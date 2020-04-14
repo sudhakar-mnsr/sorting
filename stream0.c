@@ -41,3 +41,26 @@ cattostream(int fd)
               * Read was interrupted by SIGPOLL.
               */
              continue;
+         } else {
+             /*
+              * Successfully read something.
+              */
+             totrd += n;
+         }
+
+         /*
+          * Start critical section.  Block SIGPOLL.
+
+          * Then try to write what we’ve just read.
+          */
+         sigprocmask(SIG_BLOCK, &s, &os);
+         dowrite(0);
+         while (flowctl) {
+             if (ridx != widx) {
+                 /*
+                  * Allow read to be interrupted.
+                  */
+                 sigprocmask(SIG_UNBLOCK, &s, NULL);
+                 if ((n = doread(fd)) == 0) { /* EOF */
+                     finwrite();
+                     return;
