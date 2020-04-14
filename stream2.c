@@ -34,3 +34,10 @@ getack(int fd)
          errno = EPROTO;
          return(-1);
      }
+     /*
+      * The status field of the message contains an error
+      * number if the request failed, or 0 otherwise.
+      */
+     errno = ack.status;
+     return(errno ? -1 : 0);
+}
