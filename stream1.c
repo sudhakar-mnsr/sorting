@@ -18,3 +18,11 @@ senddata(int fd, char *buf, uint_t blen, char *addr,
      size = sizeof(struct data_req) + alen;
      if ((bp = malloc(size)) == NULL)
          return(-1);
+
+     /*
+      * Initialize the data_req structure.
+      */
+     reqp = (struct data_req *)bp;
+     reqp->primitive = DATA_REQUEST;
+     reqp->addr_len = alen;
+     reqp->addr_offset = sizeof(struct data_req);
