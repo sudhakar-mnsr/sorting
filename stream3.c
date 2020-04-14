@@ -16,3 +16,14 @@ int totwr, totrd;    /* total amounts read and written */
 int flowctl;         /* 1 if flow-controlled, 0 if not */
 int nfc;             /* number of times flow-controlled */
 
+void catreg(int), cattostream(int);
+int doread(int);
+void dowrite(int), finwrite(void);
+void setblock(int), setnonblock(int);
+
+#ifdef FCBUG
+void nop(int);
+#endif
+
+extern void error(const char *fmt, ...);
+extern void fatal(const char *fmt, ...)
