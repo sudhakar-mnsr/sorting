@@ -17,3 +17,14 @@ cattostream(int fd)
      sa.sa_flags = 0;
      if (sigaction(SIGPOLL, &sa, NULL) < 0)
          fatal("cat: sigaction failed");
+     /*
+      * Arrange to be notified when the standard output
+      * is no longer flow-controlled.  Then place the file
+      * descriptor for stdout in nonblocking mode.
+      */
+     if (ioctl(1, I_SETSIG, S_OUTPUT) < 0)
+         fatal("cat: I_SETSIG ioctl failed");
+     setnonblock(1);
+     totrd = totwr = 0;
+     ridx = widx = 0;
+     flowctl = 0;
