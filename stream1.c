@@ -43,3 +43,21 @@ senddata(int fd, char *buf, uint_t blen, char *addr,
      free(bp);
      return(ret);
 }
+
+int
+mread(int fd, char *buf, int len)
+{
+     int n;
+
+     while (len > 0) {
+         n = read(fd, buf, len);
+         if (n <= 0) {
+             if (n == 0) /* unexpected EOF */
+                 errno = EPROTO;
+             return(-1);
+         }
+         len -= n;
+         buf += n;
+     }
+     return(0);
+}
