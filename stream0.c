@@ -95,3 +95,13 @@ cattostream(int fd)
                      break;
                  }
 #endif
+
+             }
+         }
+
+         /*
+          * End critical section.  Unblock SIGPOLL.
+          */
+         sigprocmask(SIG_UNBLOCK, &s, NULL);
+     }
+}
