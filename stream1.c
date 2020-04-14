@@ -11,3 +11,10 @@ senddata(int fd, char *buf, uint_t blen, char *addr,
      struct strbuf ctl, dat;
      char *bp;
      int size, ret;
+     /*
+      * Allocate a memory buffer large enough to hold
+      * the control information.
+      */
+     size = sizeof(struct data_req) + alen;
+     if ((bp = malloc(size)) == NULL)
+         return(-1);
