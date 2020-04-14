@@ -26,3 +26,11 @@ getack(int fd)
              errno = EPROTO;
          return(-1);
      }
+     if (ack.primitive != DATA_ACK) {
+         /*
+          * The message we just obtained was not the
+          * acknowledgement we expected.
+          */
+         errno = EPROTO;
+         return(-1);
+     }
