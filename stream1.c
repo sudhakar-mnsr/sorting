@@ -34,3 +34,12 @@ senddata(int fd, char *buf, uint_t blen, char *addr,
      ctl.len = size;
      dat.buf = buf;
      dat.len = blen;
+
+     /*
+      * Send the message downstream, free the memory
+      * allocated for the control buffer, and return.
+      */
+     ret = putmsg(fd, &ctl, &dat, 0);
+     free(bp);
+     return(ret);
+}
