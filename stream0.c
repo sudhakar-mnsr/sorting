@@ -64,3 +64,15 @@ cattostream(int fd)
                  if ((n = doread(fd)) == 0) { /* EOF */
                      finwrite();
                      return;
+
+                 } else if (n > 0) { /* read data */
+                     totrd += n;
+                 }
+                 sigprocmask(SIG_BLOCK, &s, NULL);
+             } else {
+#ifdef FCBUG
+                 /*
+                  * Flow control bug -- might miss event.
+                  */
+                 alarm(1);
+#endif
