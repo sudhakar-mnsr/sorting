@@ -10,3 +10,11 @@ getack(int fd)
      struct strbuf ctl;
      int fl = RS_HIPRI;
      int ret;
+     /*
+      * Initialize the control buffer and retrieve the
+      * acknowledgement message.
+      */
+     ctl.buf = (caddr_t)&ack;
+     ctl.maxlen = sizeof(struct data_ack);
+     ret = getmsg(fd, &ctl, NULL, &fl);
+     if (ret != 0) {
