@@ -26,3 +26,11 @@ senddata(int fd, char *buf, uint_t blen, char *addr,
      reqp->primitive = DATA_REQUEST;
      reqp->addr_len = alen;
      reqp->addr_offset = sizeof(struct data_req);
+     /*
+      * Copy the address to the buffer.
+      */
+     memcpy(bp + reqp->addr_offset, addr, alen);
+     ctl.buf = bp;
+     ctl.len = size;
+     dat.buf = buf;
+     dat.len = blen;
