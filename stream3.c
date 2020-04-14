@@ -46,3 +46,20 @@ main(int argc, char *argv[])
      if (sigaction(SIGALRM, &sa, NULL) < 0)
          fatal("cat: sigaction failed");
 #endif
+
+     /*
+      * See if the standard output is a stream.  If
+      * isastream fails, assume stdout is not a stream.
+      */
+     isoutstr = isastream(1);
+     if (isoutstr == -1)
+         isoutstr = 0;
+
+     /*
+      * Process each file named on the command line.
+      */
+     for (i = 1; i < argc; i++) {
+         if ((fd = open(argv[i], O_RDONLY)) < 0) {
+             error("cat: cannot open %s", argv[i]);
+             continue;
+         }
