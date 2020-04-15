@@ -42,3 +42,15 @@ main(int argc, char *argv[])
      sa.sa_handler = nop;
      sigemptyset(&sa.sa_mask);
      sa.sa_flags = 0;
+
+     if (sigaction(SIGALRM, &sa, NULL) < 0)
+         fatal("cat: sigaction failed");
+#endif
+
+     /*
+      * See if the standard output is a stream.  If
+      * isastream fails, assume stdout is not a stream.
+      */
+     isoutstr = isastream(1);
+     if (isoutstr == -1)
+         isoutstr = 0;
