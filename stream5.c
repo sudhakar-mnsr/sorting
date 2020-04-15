@@ -62,3 +62,19 @@ main(int argc, char *argv[])
              error("cat: cannot open %s", argv[i]);
              continue;
          }
+         /*
+          * If the standard output is a stream, call
+          * cattostream to print the file.  Otherwise
+          * call catreg (see Example 2.4.6) to do it.
+          */
+         if (isoutstr)
+             cattostream(fd);
+         else
+             catreg(fd);
+         close(fd);
+     }
+#ifdef DEBUG
+     printf("cat: number of flow controls = %d\n", nfc);
+#endif
+     exit(0);
+}
