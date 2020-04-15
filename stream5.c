@@ -226,3 +226,14 @@ finwrite(void)
       */
      if (ioctl(1, I_SETSIG, 0) < 0) {
          struct sigaction sa;
+         /*
+          * I_SETSIG shouldn’t have failed, but
+          * it did, so the next best thing is to
+          * ignore SIGPOLL.
+          */
+         sa.sa_handler = SIG_IGN;
+         sigemptyset(&sa.sa_mask);
+         sa.sa_flags = 0;
+         if (sigaction(SIGPOLL, &sa, NULL) < 0)
+             fatal("sigaction failed");
+     }
