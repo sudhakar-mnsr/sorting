@@ -128,3 +128,9 @@ cattostream(int fd)
               * Read was interrupted by SIGPOLL.
               */
              continue;
+         } else {
+             /*
+              * Successfully read something.
+              */
+             totrd += n;
+         }
