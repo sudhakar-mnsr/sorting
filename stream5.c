@@ -237,3 +237,10 @@ finwrite(void)
          if (sigaction(SIGPOLL, &sa, NULL) < 0)
              fatal("sigaction failed");
      }
+     /*
+      * Disable nonblocking mode and write last
+      * portion to the standard output.
+      */
+     setblock(1);
+     dowrite(0);
+}
