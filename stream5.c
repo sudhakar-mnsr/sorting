@@ -161,3 +161,22 @@ cattostream(int fd)
                   */
                  alarm(1);
 #endif
+
+                 /*
+                  * Atomically unblock SIGPOLL and
+                  * wait to be interrupted.  On return,
+                  * SIGPOLL is still blocked.
+                  */
+                 sigsuspend(&os);
+#ifdef FCBUG
+                 alarm(0);
+                 if (ioctl(1, I_CANPUT, 0) != 0) {
+                     /*
+                      * Flow control lifted;
+                      * continue writing.
+                      */
+                     flowctl = 0;
+                     dowrite(0);
+                     break;
+                 }
+#endif
