@@ -78,3 +78,10 @@ main(int argc, char *argv[])
 #endif
      exit(0);
 }
+
+#ifdef FCBUG
+void
+nop(int sig)
+{
+}
+#endif
