@@ -217,3 +217,12 @@ setblock(int fd)
      if (fcntl(fd, F_SETFL, (fl&~O_NONBLOCK)) < 0)
          fatal("cat: fcntl F_SETFL failed");
 }
+void
+finwrite(void)
+{
+
+     /*
+      * Cancel SIGPOLL generation for stdout.
+      */
+     if (ioctl(1, I_SETSIG, 0) < 0) {
+         struct sigaction sa;
