@@ -189,3 +189,17 @@ cattostream(int fd)
          sigprocmask(SIG_UNBLOCK, &s, NULL);
      }
 }
+void
+setnonblock(int fd)
+{
+     int fl;
+
+     /*
+      * Get the current file flags and turn on
+      * nonblocking mode.
+      */
+     if ((fl = fcntl(fd, F_GETFL, 0)) < 0)
+         fatal("cat: fcntl F_GETFL failed");
+     if (fcntl(fd, F_SETFL, fl|O_NONBLOCK) < 0)
+         fatal("cat: fcntl F_SETFL failed");
+}
