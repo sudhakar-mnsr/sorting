@@ -20,3 +20,25 @@ void catreg(int), cattostream(int);
 int doread(int);
 void dowrite(int), finwrite(void);
 void setblock(int), setnonblock(int);
+
+#ifdef FCBUG
+void nop(int);
+#endif
+
+extern void error(const char *fmt, ...);
+extern void fatal(const char *fmt, ...);
+
+void
+main(int argc, char *argv[])
+{
+     int i, fd, isoutstr;
+#ifdef FCBUG
+     struct sigaction sa;
+
+     /*
+      * If system contains flow-control bug,
+      * install a signal handler for SIGALRM.
+      */
+     sa.sa_handler = nop;
+     sigemptyset(&sa.sa_mask);
+     sa.sa_flags = 0;
