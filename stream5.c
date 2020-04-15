@@ -264,3 +264,21 @@ doread(int fd)
 
              rcnt = RDSIZE;
      }
+     /*
+      * Read as much as we can.
+      */
+     n = read(fd, &buf[ridx], rcnt);
+     if (n >= 0) {
+         ridx += n;
+
+         /*
+          * If we’ve reached the end of the buffer,
+          * reset the read index to the beginning.
+          */
+         if (ridx == BUFSIZE)
+             ridx = 0;
+     } else if (errno != EINTR) {
+         fatal("cat: read failed");
+     }
+     return(n);
+}
