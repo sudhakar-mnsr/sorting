@@ -244,3 +244,23 @@ finwrite(void)
      setblock(1);
      dowrite(0);
 }
+int
+doread(int fd)
+{
+     int n, rcnt;
+
+     /*
+      * Calculate the space left to read.
+      * Read at most RDSIZE bytes.
+      */
+     rcnt = widx - ridx;
+     if (rcnt <= 0) {
+         /*
+          * The writer is behind the reader
+          * in the buffer.
+          */
+         rcnt = BUFSIZE - ridx;
+         if (rcnt > RDSIZE)
+
+             rcnt = RDSIZE;
+     }
