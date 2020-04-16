@@ -35,3 +35,16 @@ main(int argc, char **argv)
 	FD_SET(listenfd, &allset);
 	maxfd = max(maxfd, listenfd);
 /* end icmpd1 */
+
+/* include icmpd2 */
+	for ( ; ; ) {
+		rset = allset;
+		nready = Select(maxfd+1, &rset, NULL, NULL, NULL);
+
+		if (FD_ISSET(listenfd, &rset))
+			if (readable_listen() <= 0)
+				continue;
+
+		if (FD_ISSET(fd4, &rset))
+			if (readable_v4() <= 0)
+				continue;
