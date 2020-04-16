@@ -14,3 +14,19 @@ $ go build -gcflags -m=2
 ./example4.go:18:27: main &u2 does not escape
 // See the intermediate representation phase before
 // generating the actual arch-specific assembly
+
+$ go build -gcflags -S
+0x0021 00033 (/.../example4.go:15)	CALL	"".createUserV1(SB)
+0x0026 00038 (/.../example4.go:15)	MOVQ	(SP), AX
+0x002a 00042 (/.../example4.go:15)	MOVQ	8(SP), CX
+0x002f 00047 (/.../example4.go:15)	MOVQ	16(SP), DX
+0x0034 00052 (/.../example4.go:15)	MOVQ	24(SP), BX
+0x0039 00057 (/.../example4.go:15)	MOVQ	AX, "".u1+40(SP)
+0x003e 00062 (/.../example4.go:15)	MOVQ	CX, "".u1+48(SP)
+0x0043 00067 (/.../example4.go:15)	MOVQ	DX, "".u1+56(SP)
+0x0048 00072 (/.../example4.go:15)	MOVQ	BX, "".u1+64(SP)
+0x004d 00077 (/.../example4.go:16)	PCDATA	$0, $1
+// See bounds checking decisions.
+go build -gcflags="-d=ssa/check_bce/debug=1"
+// See the actual machine representation by using
+// the disasembler.
