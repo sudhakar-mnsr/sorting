@@ -14,3 +14,17 @@ func main() {
 
 	println("u1", &u1, "u2", u2)
 }
+
+// createUserV1 creates a user value and passed
+// a copy back to the caller.
+//go:noinline
+func createUserV1() user {
+	u := user{
+		name:  "Bill",
+		email: "bill@ardanlabs.com",
+	}
+
+	println("V1", &u)
+
+	return u
+}
