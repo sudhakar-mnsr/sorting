@@ -30,3 +30,15 @@ $ go build -gcflags -S
 go build -gcflags="-d=ssa/check_bce/debug=1"
 // See the actual machine representation by using
 // the disasembler.
+
+$ go tool objdump -s main.main example4
+TEXT main.main(SB) github.com/ardanlabs/gotraining/topics/go/language/pointers/example4/example4.go
+example4.go:15	0x104aaf1		e8aa000000		CALL main.createUserV1(SB)
+example4.go:15	0x104aaf6		488b0424		MOVQ 0(SP), AX
+example4.go:15	0x104aafa		488b4c2408		MOVQ 0x8(SP), CX
+example4.go:15	0x104aaff		488b542410		MOVQ 0x10(SP), DX
+example4.go:15	0x104ab04		488b5c2418		MOVQ 0x18(SP), BX
+example4.go:15	0x104ab09		4889442428		MOVQ AX, 0x28(SP)
+example4.go:15	0x104ab0e		48894c2430		MOVQ CX, 0x30(SP)
+example4.go:15	0x104ab13		4889542438		MOVQ DX, 0x38(SP)
+example4.go:15	0x104ab18		48895c2440		MOVQ BX, 0x40(SP)
