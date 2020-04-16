@@ -42,3 +42,13 @@ example4.go:15	0x104ab09		4889442428		MOVQ AX, 0x28(SP)
 example4.go:15	0x104ab0e		48894c2430		MOVQ CX, 0x30(SP)
 example4.go:15	0x104ab13		4889542438		MOVQ DX, 0x38(SP)
 example4.go:15	0x104ab18		48895c2440		MOVQ BX, 0x40(SP)
+
+// See a list of the symbols in an artifact with
+// annotations and size.
+$ go tool nm example4
+104aba0 T main.createUserV1
+104ac70 T main.createUserV2
+104ad50 T main.init
+10be460 B main.initdone.
+104aad0 T main.main
+*/
