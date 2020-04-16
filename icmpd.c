@@ -25,3 +25,13 @@ main(int argc, char **argv)
 	FD_SET(fd6, &allset);
 	maxfd = max(maxfd, fd6);
 #endif
+
+	listenfd = Socket(AF_UNIX, SOCK_STREAM, 0);
+	sun.sun_family = AF_LOCAL;
+	strcpy(sun.sun_path, ICMPD_PATH);
+	unlink(ICMPD_PATH);
+	Bind(listenfd, (SA *)&sun, sizeof(sun));
+	Listen(listenfd, LISTENQ);
+	FD_SET(listenfd, &allset);
+	maxfd = max(maxfd, listenfd);
+/* end icmpd1 */
