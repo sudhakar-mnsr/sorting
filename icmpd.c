@@ -48,3 +48,8 @@ main(int argc, char **argv)
 		if (FD_ISSET(fd4, &rset))
 			if (readable_v4() <= 0)
 				continue;
+#ifdef	IPV6
+		if (FD_ISSET(fd6, &rset))
+			if (readable_v6() <= 0)
+				continue;
+#endif
