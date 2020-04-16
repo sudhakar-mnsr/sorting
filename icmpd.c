@@ -53,3 +53,15 @@ main(int argc, char **argv)
 			if (readable_v6() <= 0)
 				continue;
 #endif
+
+		for (i = 0; i <= maxi; i++) {	/* check all clients for data */
+			if ( (sockfd = client[i].connfd) < 0)
+				continue;
+			if (FD_ISSET(sockfd, &rset))
+				if (readable_conn(i) <= 0)
+					break;				/* no more readable descriptors */
+		}
+	}
+	exit(0);
+}
+/* end icmpd2 */
