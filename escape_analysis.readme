@@ -1,0 +1,16 @@
+/*
+// See escape analysis and inlining decisions.
+$ go build -gcflags -m=2
+# github.com/ardanlabs/gotraining/topics/go/language/pointers/example4
+./example4.go:24:6: cannot inline createUserV1: marked go:noinline
+./example4.go:38:6: cannot inline createUserV2: marked go:noinline
+./example4.go:14:6: cannot inline main: non-leaf function
+./example4.go:30:16: createUserV1 &u does not escape
+./example4.go:46:9: &u escapes to heap
+./example4.go:46:9: 	from ~r0 (return) at ./example4.go:46:2
+./example4.go:39:2: moved to heap: u
+./example4.go:44:16: createUserV2 &u does not escape
+./example4.go:18:16: main &u1 does not escape
+./example4.go:18:27: main &u2 does not escape
+// See the intermediate representation phase before
+// generating the actual arch-specific assembly
