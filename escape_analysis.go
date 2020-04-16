@@ -28,3 +28,17 @@ func createUserV1() user {
 
 	return u
 }
+
+// createUserV2 creates a user value and shares
+// the value with the caller.
+//go:noinline
+func createUserV2() *user {
+	u := user{
+		name:  "Bill",
+		email: "bill@ardanlabs.com",
+	}
+
+	println("V2", &u)
+
+	return &u
+}
