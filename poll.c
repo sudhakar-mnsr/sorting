@@ -21,3 +21,12 @@ comm(int tfd, int nfd)
              error("poll failed");
              break;
          }
+         /*
+          * Check each file descriptor.
+          */
+         for (i = 0; i < 2; i++) {
+             /*
+              * If an error occurred, just return.
+              */
+             if (pfd[i].revents&(POLLERR|POLLHUP|POLLNVAL))
+                 return;
