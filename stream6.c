@@ -30,3 +30,9 @@ send(int fd, char *buf, uint_t blen, char *addr,
          sigprocmask(SIG_SETMASK, &oset, NULL);
          return(-1);
      }
+     /*
+      * Restore the original signal mask.
+      */
+     sigprocmask(SIG_SETMASK, &oset, NULL);
+     return(0);
+}
