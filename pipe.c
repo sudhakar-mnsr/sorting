@@ -28,3 +28,10 @@ chgterm()
          close(pfd[1]);
          return(-1);
      }
+     /*
+      * Close the end of the pipe just mounted and
+      * return the other end to the caller.
+      */
+     close(pfd[1]);
+     return(pfd[0]);
+}
