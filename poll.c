@@ -40,3 +40,11 @@ comm(int tfd, int nfd)
                  if (n > 0) {
                      write(pfd[1-i].fd, buf, n);
                  } else {
+                     if (n < 0)
+                         error("read failed");
+                     return;
+                 }
+             }
+         }
+     }
+}
