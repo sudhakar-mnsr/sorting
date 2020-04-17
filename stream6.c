@@ -15,3 +15,10 @@ send(int fd, char *buf, uint_t blen, char *addr,
      sigemptyset(&set);
      sigaddset(&set, SIGPOLL);
      sigprocmask(SIG_BLOCK, &set, &oset);
+     /*
+      * Send the message.
+      */
+     if (senddata(fd, buf, blen, addr, alen) < 0) {
+         sigprocmask(SIG_SETMASK, &oset, NULL);
+         return(-1);
+     }
