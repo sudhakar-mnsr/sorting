@@ -312,3 +312,9 @@ dowrite(int sig)
                  flowctl = 1;
                  return;
              } else {
+                 fatal("cat: write failed");
+             }
+         } else {
+             totwr += n;
+         }
+         widx += n;
