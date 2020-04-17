@@ -326,3 +326,11 @@ dowrite(int sig)
          if (widx == BUFSIZE)
              widx = 0;
      }
+     while (widx < ridx) {
+         /*
+          * The writer is behind the reader in the buffer.
+          */
+         wcnt = ridx - widx;
+         n = write(1, &buf[widx], wcnt);
+         if (n < 0) {
+             if (errno == EAGAIN) {
