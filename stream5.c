@@ -334,3 +334,12 @@ dowrite(int sig)
          n = write(1, &buf[widx], wcnt);
          if (n < 0) {
              if (errno == EAGAIN) {
+                 /*
+                  * The stream is flow-controlled.
+                  */
+                 nfc++;
+                 flowctl = 1;
+                 return;
+             } else {
+                 fatal("cat: write failed");
+             }
