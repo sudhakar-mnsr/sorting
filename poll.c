@@ -14,3 +14,10 @@ comm(int tfd, int nfd)
      pfd[1].fd = nfd;    /* network */
      pfd[1].events = POLLIN;
      for (;;) {
+         /*
+          * Wait for events to occur.
+          */
+         if (poll(pfd, 2, -1) < 0) {
+             error("poll failed");
+             break;
+         }
