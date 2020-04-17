@@ -296,3 +296,19 @@ dowrite(int sig)
           */
          if ((widx == ridx) && (totrd == totwr))
              break;
+         /*
+          * The writer is ahead of the reader in the
+          * buffer. Calculate the amount left to write,
+          * and write it.
+          */
+         wcnt = BUFSIZE - widx;
+         n = write(1, &buf[widx], wcnt);
+         if (n < 0) {
+             if (errno == EAGAIN) {
+                 /*
+                  * The stream is flow-controlled.
+                  */
+                 nfc++;
+                 flowctl = 1;
+                 return;
+             } else {
