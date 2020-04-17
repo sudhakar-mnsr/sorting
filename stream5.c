@@ -354,3 +354,10 @@ dowrite(int sig)
          if (widx == BUFSIZE)
              widx = 0;
      }
+     /*
+      * If we reach this point, write was able to
+      * transmit everything, so we probably aren’t
+      * flow-controlled.
+      */
+     flowctl = 0;
+}
