@@ -30,3 +30,13 @@ comm(int tfd, int nfd)
               */
              if (pfd[i].revents&(POLLERR|POLLHUP|POLLNVAL))
                  return;
+             /*
+              * If there are data present, read them from
+              * one file descriptor and write them to the
+              * other one.
+              */
+             if (pfd[i].revents&POLLIN) {
+                 n = read(pfd[i].fd, buf, sizeof(buf));
+                 if (n > 0) {
+                     write(pfd[1-i].fd, buf, n);
+                 } else {
