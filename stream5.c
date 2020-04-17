@@ -343,3 +343,7 @@ dowrite(int sig)
              } else {
                  fatal("cat: write failed");
              }
+         } else {
+             totwr += n;
+         }
+         widx += n;
