@@ -282,3 +282,17 @@ doread(int fd)
      }
      return(n);
 }
+
+void
+dowrite(int sig)
+{
+     int n, wcnt;
+
+     while (widx >= ridx) {
+
+         /*
+          * Stop when the writer has caught up with
+          * the reader.
+          */
+         if ((widx == ridx) && (totrd == totwr))
+             break;
