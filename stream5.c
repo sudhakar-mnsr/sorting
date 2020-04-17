@@ -318,3 +318,11 @@ dowrite(int sig)
              totwr += n;
          }
          widx += n;
+
+         /*
+          * If the write index has reached the end
+          * of the buffer, reset it to 0.
+          */
+         if (widx == BUFSIZE)
+             widx = 0;
+     }
