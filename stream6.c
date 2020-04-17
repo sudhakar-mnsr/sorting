@@ -22,3 +22,11 @@ send(int fd, char *buf, uint_t blen, char *addr,
          sigprocmask(SIG_SETMASK, &oset, NULL);
          return(-1);
      }
+     /*
+      * Receive the acknowledgement.
+      */
+
+     if (getack(fd) < 0) {
+         sigprocmask(SIG_SETMASK, &oset, NULL);
+         return(-1);
+     }
