@@ -77,12 +77,12 @@ func store(s Storer, data []Data) (int, error) {
    return len(data), nil
 }
 
-func Copy(sys *System, batch int) error {
+func Copy(p *Puller, s *Storer, batch int) error {
    data := make([]Data, batch)
    for {
-      i, err := pull(sys, data)
+      i, err := pull(p, data)
       if i > 0 {
-         if _, err := store(sys, data[:i]); err != nil {
+         if _, err := store(s, data[:i]); err != nil {
             return err
          }
       }
