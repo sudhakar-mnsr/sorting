@@ -17,4 +17,9 @@ type Data struct {
    Line string
 }
 
+// Xenia is a system we need to pull data from.
+type Xenia struct {
+   Host string
+   Timeout time.Duration
+}
 
