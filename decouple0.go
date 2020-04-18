@@ -49,3 +49,10 @@ func (*Pillar) Store(d *Data) error {
    return nil
 }
 
+// System wraps Xenia and Pillar together into a single system
+type System struct {
+   Xenia
+   Pillar
+}
+
+
