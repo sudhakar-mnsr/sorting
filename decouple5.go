@@ -77,7 +77,7 @@ func store(s Storer, data []Data) (int, error) {
    return len(data), nil
 }
 
-func Copy(p *Puller, s *Storer, batch int) error {
+func Copy(p Puller, s Storer, batch int) error {
    data := make([]Data, batch)
    for {
       i, err := pull(p, data)
@@ -94,17 +94,17 @@ func Copy(p *Puller, s *Storer, batch int) error {
 }
 
 func main() {
-   Puller: &Xenia{
+   x := Xenia{
       Host: "localhost:8000",
       Timeout: time.Second,
    }
 
-   Storer: &Pillar{
+   p := Pillar{
       Host: "localhost:9000",
       Timeout: time.Second,
    }
 
-   if err := Copy(&sys, 3); err != io.EOF {
+   if err := Copy(&x, &p, 3); err != io.EOF {
       fmt.Println(err)
    }
 } 
