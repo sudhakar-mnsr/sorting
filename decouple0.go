@@ -43,3 +43,9 @@ type Pillar struct {
    Timeout time.Duration
 }
 
+// Store knows how to store data into Pillar
+func (*Pillar) Store(d *Data) error {
+   fmt.Println("Out:", d.Line)
+   return nil
+}
+
