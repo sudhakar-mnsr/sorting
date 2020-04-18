@@ -66,7 +66,7 @@ type System struct {
 // Pull knows how to pull bulks of data from Xenia
 func pull(p Puller, data []Data) (int, error) {
    for i := range data {
-      if err := x.Pull(&data[i]); err != nil {
+      if err := p.Pull(&data[i]); err != nil {
          return i, err
       }
    }
@@ -76,7 +76,7 @@ func pull(p Puller, data []Data) (int, error) {
 // store knows how to store bulks of data into Pillar
 func store(s Storer, data []Data) (int, error) {
    for i := range data {
-      if err := p.Store(&data[i]); err !=nil {
+      if err := s.Store(&data[i]); err !=nil {
          return i, err
       }
    }
