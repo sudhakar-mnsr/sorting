@@ -21,6 +21,10 @@ type Puller interface {
    Pull(d *Data) error
 }
 
+type Storer interface {
+   Store(d *Data) error
+}
+
 // Xenia is a system we need to pull data from.
 type Xenia struct {
    Host string
@@ -60,7 +64,7 @@ type System struct {
 }
 
 // Pull knows how to pull bulks of data from Xenia
-func pull(x *Xenia, data []Data) (int, error) {
+func pull(p Puller, data []Data) (int, error) {
    for i := range data {
       if err := x.Pull(&data[i]); err != nil {
          return i, err
@@ -70,7 +74,7 @@ func pull(x *Xenia, data []Data) (int, error) {
 }
 
 // store knows how to store bulks of data into Pillar
-func store(p *Pillar, data []Data) (int, error) {
+func store(s Storer, data []Data) (int, error) {
    for i := range data {
       if err := p.Store(&data[i]); err !=nil {
          return i, err
