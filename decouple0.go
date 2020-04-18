@@ -78,7 +78,7 @@ func store(p *Pillar, data []Data) (int, error) {
 func Copy(sys *System, batch int) error {
    data := make([]Data, batch)
    for {
-      i, err := pull(&sys.Pillar, data)
+      i, err := pull(&sys.Xenia, data)
       if i > 0 {
          if _, err := store(&sys.Pillar, data[:i]); err != nil {
             return err
