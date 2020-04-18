@@ -74,3 +74,19 @@ func store(p *Pillar, data []Data) (int, error) {
    }
    return len(data), nil
 }
+
+func Copy(sys *System, batch int) error {
+   data := make([]Data, batch)
+   for {
+      i, err := pull(&sys.Pillar, data)
+      if i > 0 {
+         if _, err := store(&sys.Pillar, data[:i]); err != nil {
+            return err
+         }
+      }
+
+      if err != nil {
+         return err
+      }
+   }
+}
