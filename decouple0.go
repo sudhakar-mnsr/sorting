@@ -23,3 +23,16 @@ type Xenia struct {
    Timeout time.Duration
 }
 
+// PUll knows how to pull data out of Xenia.
+func (*Xenia) Pull(d *Data) error {
+   switch rand.Intn(10) {
+   case 1,9:
+      return io.EOF
+   case 5:
+      return errors.New("Error reading data from Xenia")
+   default:
+      d.Line = "Data"
+      fmt.Println("In:", d.Line)
+      return nil
+   }
+} 
