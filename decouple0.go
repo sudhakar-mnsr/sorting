@@ -55,4 +55,12 @@ type System struct {
    Pillar
 }
 
-
+// Pull knows how to pull bulks of data from Xenia
+func pull(x *Xenia, data []Data) (int, error) {
+   for i := range data {
+      if err := x.Pull(&data[i]); err != nil {
+         return i, err
+      }
+   }
+   return len(data), nil
+}
