@@ -66,3 +66,15 @@ func (*Pillar) Store(d *Data) error {
 	fmt.Println("Out:", d.Line)
 	return nil
 }
+// =============================================================================
+
+// pull knows how to pull bulks of data from any Puller.
+func pull(p Puller, data []Data) (int, error) {
+	for i := range data {
+		if err := p.Pull(&data[i]); err != nil {
+			return i, err
+		}
+	}
+
+	return len(data), nil
+}
