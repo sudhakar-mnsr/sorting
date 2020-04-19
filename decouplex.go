@@ -101,3 +101,8 @@ func Copy(p Puller, s Storer, batch int) error {
 				return err
 			}
 		}
+		if err != nil {
+			return err
+		}
+	}
+}
