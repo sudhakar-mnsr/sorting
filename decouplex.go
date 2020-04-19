@@ -118,3 +118,8 @@ func main() {
 		Host:    "localhost:9000",
 		Timeout: time.Second,
 	}
+
+	if err := Copy(&x, &p, 3); err != io.EOF {
+		fmt.Println(err)
+	}
+}
