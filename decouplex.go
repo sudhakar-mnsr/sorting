@@ -26,3 +26,8 @@ type Data struct {
 type Puller interface {
 	Pull(d *Data) error
 }
+
+// Storer declares behavior for storing data.
+type Storer interface {
+	Store(d *Data) error
+}
