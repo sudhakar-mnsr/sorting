@@ -78,3 +78,14 @@ func pull(p Puller, data []Data) (int, error) {
 
 	return len(data), nil
 }
+
+// store knows how to store bulks of data from any Storer.
+func store(s Storer, data []Data) (int, error) {
+	for i := range data {
+		if err := s.Store(&data[i]); err != nil {
+			return i, err
+		}
+	}
+
+	return len(data), nil
+}
