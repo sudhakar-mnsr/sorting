@@ -19,8 +19,6 @@ type Data struct {
 	Line string
 }
 
-// =============================================================================
-
 // Puller declares behavior for pulling data.
 type Puller interface {
 	Pull(d *Data) error
