@@ -31,3 +31,11 @@ type Puller interface {
 type Storer interface {
 	Store(d *Data) error
 }
+
+// =============================================================================
+
+// Xenia is a system we need to pull data from.
+type Xenia struct {
+	Host    string
+	Timeout time.Duration
+}
