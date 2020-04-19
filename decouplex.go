@@ -114,3 +114,7 @@ func main() {
 		Host:    "localhost:8000",
 		Timeout: time.Second,
 	}
+	p := Pillar{
+		Host:    "localhost:9000",
+		Timeout: time.Second,
+	}
