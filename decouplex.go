@@ -39,3 +39,9 @@ type Xenia struct {
 	Host    string
 	Timeout time.Duration
 }
+
+// Pull knows how to pull data out of Xenia.
+func (*Xenia) Pull(d *Data) error {
+	switch rand.Intn(10) {
+	case 1, 9:
+		return io.EOF
