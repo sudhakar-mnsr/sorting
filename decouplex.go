@@ -89,3 +89,15 @@ func store(s Storer, data []Data) (int, error) {
 
 	return len(data), nil
 }
+
+// Copy knows how to pull and store data from any System.
+func Copy(p Puller, s Storer, batch int) error {
+	data := make([]Data, batch)
+
+	for {
+		i, err := pull(p, data)
+		if i > 0 {
+			if _, err := store(s, data[:i]); err != nil {
+				return err
+			}
+		}
