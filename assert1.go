@@ -35,10 +35,17 @@ func main() {
    }
 
 	// Let's run this experiment ten times.
-	for i := 0; i < 10; i++ {
+   for i := 0; i < 10; i++ {
+   
+      // Choose a random number from 0 to 1.
+      rn := rand.Intn(2)
 
-		// Choose a random number from 0 to 1.
-		rn := rand.Intn(2)
-
-		// Perform a type assertion that we have a concrete type
-		// of cloud in the interface value we randomly chose.
+      // Perform a type assertion that we have a concrete type
+      // of cloud in the interface value we randomly chose.
+      if v, is := mvs[rn].(cloud); is {
+         fmt.Println("Got Lucky:", v)
+         continue
+      }
+      fmt.Println("Got Unlucky")
+   }
+}
