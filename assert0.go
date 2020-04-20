@@ -48,4 +48,15 @@ func main() {
    ml = bike{}
    ml = m // allowed
 
-   
+   // It is important to note that the type assertion syntax provides a 
+   // way to state what type of value is stored inside the interface. 
+   // This is more powerful from a language and readability standpoint,
+   // than using a casting syntax, like in other languages.
+   b := m.(bike)
+   ml = b
+
+   // another form without panic
+   if (b1, ok := m.(bike)); ok {
+       fmt.Println(ok)
+   }
+}  
