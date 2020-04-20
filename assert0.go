@@ -26,3 +26,13 @@ type bike struct{}
 func (bike) Move() {
    fmt.Println("Moving the bike")
 }
+
+// Lock prevents a bike from moving
+func (bike) Lock() {
+   fmt.Println("Locking the bike")
+}
+
+// Unlock allows bike to be moved.
+func (bike) Unlock() {
+   fmt.Println("Unlocking the bike")
+}
