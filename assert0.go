@@ -36,3 +36,16 @@ func (bike) Lock() {
 func (bike) Unlock() {
    fmt.Println("Unlocking the bike")
 }
+
+func main() {
+   // Declare variables of the MoveLocker and Mover interfaces set to 
+   // their zero value.
+   var ml MoveLocker
+   var m Mover
+
+   // Create a value of type bike and assign the value to the MoveLocker
+   // interface value
+   ml = bike{}
+   ml = m // allowed
+
+   
