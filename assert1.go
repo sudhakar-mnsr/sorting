@@ -34,3 +34,11 @@ func main() {
             cloud{},
    }
 
+	// Let's run this experiment ten times.
+	for i := 0; i < 10; i++ {
+
+		// Choose a random number from 0 to 1.
+		rn := rand.Intn(2)
+
+		// Perform a type assertion that we have a concrete type
+		// of cloud in the interface value we randomly chose.
