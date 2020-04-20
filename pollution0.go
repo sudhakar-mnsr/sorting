@@ -34,4 +34,8 @@ func (s *server) Stop() error {
    return nil
 }
 
-
+// Wait prevents the server from accepting new connections.
+func (s *server) Wait() error {
+   // SPECIFIC IMPL
+   return nil
+}
