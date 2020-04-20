@@ -15,3 +15,11 @@ type car struct{}
 func (car) String() string {
    return "Vroom!"
 }
+
+// cloud represents somewhere you store information
+type cloud struct{}
+
+// string implements the fmt.Stringer interface.
+func (cloud) String() string {
+   return "Big Data!"
+}
