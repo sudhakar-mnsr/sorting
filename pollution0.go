@@ -39,3 +39,13 @@ func (s *server) Wait() error {
    // SPECIFIC IMPL
    return nil
 }
+
+func main() {
+   // Create new server
+   srv := NewServer("localhost")
+
+   // Use the API
+   srv.Start()
+   srv.Stop()
+   srv.Wait()
+}
