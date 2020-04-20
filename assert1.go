@@ -7,3 +7,11 @@ import (
 	"math/rand"
 	"time"
 )
+
+// car represents something you drive
+type car struct{}
+
+// String implements the fmt.Stringer interface
+func (car) String() string {
+   return "Vroom!"
+}
