@@ -21,3 +21,17 @@ type server struct {
 func NewServer(host string) Server {
    return &server{host}
 }
+
+// Start allows the server to begin to accept requests.
+func (s *server) Start() error {
+   // SPECIFIC IMPL
+   return nil
+}
+
+// Stop shuts the server down
+func (s *server) Stop() error {
+   // SPECIFIC IMPL
+   return nil
+}
+
+
