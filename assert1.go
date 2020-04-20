@@ -23,3 +23,14 @@ type cloud struct{}
 func (cloud) String() string {
    return "Big Data!"
 }
+
+func main() {
+   // Seed the number random generator
+   rand.Seed(time.Now().UnixNano())
+
+   // Create a slice of the Stringer interface values.
+   mvs := []fmt.Stringer{
+            car{},
+            cloud{},
+   }
+
