@@ -14,3 +14,14 @@ var (
 	// ErrPageMoved is returned when a 301/302 is returned.
 	ErrPageMoved = errors.New("Page Moved")
 )
+
+func main() {
+	if err := webCall(true); err != nil {
+		switch err {
+		case ErrBadRequest:
+			fmt.Println("Bad Request Occurred")
+			return
+
+		case ErrPageMoved:
+			fmt.Println("The Page moved")
+			return
