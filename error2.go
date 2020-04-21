@@ -26,3 +26,8 @@ func (e *InvalidUnmarshalError) Error() string {
 	}
 	return "json: Unmarshal(nil " + e.Type.String() + ")"
 }
+
+// user is a type for use in the Unmarshal call.
+type user struct {
+	Name int
+}
