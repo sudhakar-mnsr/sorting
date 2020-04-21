@@ -28,3 +28,17 @@ func main() {
 
 			// We got our custom error type.
 			fmt.Println("Custom App Error:", v.State)
+
+		default:
+
+			// We did not get any specific error type.
+			fmt.Println("Default Error")
+		}
+
+		// Display the stack trace for the error.
+		fmt.Println("\nStack Trace\n********************************")
+		fmt.Printf("%+v\n", err)
+		fmt.Println("\nNo Trace\n********************************")
+		fmt.Printf("%v\n", err)
+	}
+}
