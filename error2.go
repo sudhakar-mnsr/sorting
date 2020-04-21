@@ -31,3 +31,11 @@ func (e *InvalidUnmarshalError) Error() string {
 type user struct {
 	Name int
 }
+
+func main() {
+	var u user
+	err := Unmarshal([]byte(`{"name":"bill"}`), u) // Run with a value and pointer.
+	if err != nil {
+		switch e := err.(type) {
+		case *UnmarshalTypeError:
+			fmt.Printf("UnmarshalTypeError: Value[%s] Type[%v]\n", e.Value, e.Type)
