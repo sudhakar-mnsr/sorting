@@ -25,3 +25,11 @@ func main() {
 		case ErrPageMoved:
 			fmt.Println("The Page moved")
 			return
+		default:
+			fmt.Println(err)
+			return
+		}
+	}
+
+	fmt.Println("Life is good")
+}
