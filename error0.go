@@ -17,3 +17,9 @@ type errorString struct {
 func (e *errorString) Error() string {
 	return e.s
 }
+
+// http://golang.org/src/pkg/errors/errors.go
+// New returns an error that formats as the given text.
+func New(text string) error {
+	return &errorString{text}
+}
