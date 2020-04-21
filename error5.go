@@ -11,3 +11,8 @@ import (
 type AppError struct {
 	State int
 }
+
+// Error implements the error interface.
+func (c *AppError) Error() string {
+	return fmt.Sprintf("App Error, State: %d", c.State)
+}
