@@ -39,3 +39,13 @@ func main() {
 		switch e := err.(type) {
 		case *UnmarshalTypeError:
 			fmt.Printf("UnmarshalTypeError: Value[%s] Type[%v]\n", e.Value, e.Type)
+		case *InvalidUnmarshalError:
+			fmt.Printf("InvalidUnmarshalError: Type[%v]\n", e.Type)
+		default:
+			fmt.Println(err)
+		}
+		return
+	}
+
+	fmt.Println("Name:", u.Name)
+}
