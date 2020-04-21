@@ -33,3 +33,13 @@ func main() {
 
 	fmt.Println("Life is good")
 }
+
+
+// webCall performs a web operation.
+func webCall(b bool) error {
+	if b {
+		return ErrBadRequest
+	}
+
+	return ErrPageMoved
+}
