@@ -43,3 +43,14 @@ func webCall(b bool) error {
 
 	return ErrPageMoved
 }
+
+// Error implements the error interface.
+func (e *UnmarshalTypeError) Error() string {
+	return "json: cannot unmarshal " + e.Value + " into Go value of type " + e.Type.String()
+}
+
+// An InvalidUnmarshalError describes an invalid argument passed to Unmarshal.
+// (The argument to Unmarshal must be a non-nil pointer.)
+type InvalidUnmarshalError struct {
+	Type reflect.Type
+}
