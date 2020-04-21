@@ -58,3 +58,8 @@ func secondCall(i int) error {
 	}
 	return nil
 }
+
+// thirdCall create an error value we will validate.
+func thirdCall() error {
+	return &AppError{99}
+}
