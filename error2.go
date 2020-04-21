@@ -49,3 +49,13 @@ func main() {
 
 	fmt.Println("Name:", u.Name)
 }
+
+// Unmarshal simulates an unmarshal call that always fails.
+func Unmarshal(data []byte, v interface{}) error {
+	rv := reflect.ValueOf(v)
+	if rv.Kind() != reflect.Ptr || rv.IsNil() {
+		return &InvalidUnmarshalError{reflect.TypeOf(v)}
+	}
+
+	return &UnmarshalTypeError{"string", reflect.TypeOf(v)}
+}
