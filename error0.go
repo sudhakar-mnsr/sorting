@@ -7,3 +7,13 @@ import "fmt"
 type error interface {
 	Error() string
 }
+
+// http://golang.org/src/pkg/errors/errors.go
+type errorString struct {
+	s string
+}
+
+// http://golang.org/src/pkg/errors/errors.go
+func (e *errorString) Error() string {
+	return e.s
+}
