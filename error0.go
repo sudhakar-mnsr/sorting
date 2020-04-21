@@ -32,3 +32,8 @@ func main() {
 
 	fmt.Println("Life is good")
 }
+
+// webCall performs a web operation.
+func webCall() error {
+	return New("Bad Request")
+}
