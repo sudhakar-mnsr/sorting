@@ -23,3 +23,12 @@ func (e *errorString) Error() string {
 func New(text string) error {
 	return &errorString{text}
 }
+
+func main() {
+	if err := webCall(); err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println("Life is good")
+}
