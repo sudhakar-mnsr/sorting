@@ -14,3 +14,15 @@ type UnmarshalTypeError struct {
 	Value string       // description of JSON value
 	Type  reflect.Type // type of Go value it could not be assigned to
 }
+
+// Error implements the error interface.
+func (e *InvalidUnmarshalError) Error() string {
+	if e.Type == nil {
+		return "json: Unmarshal(nil)"
+	}
+
+	if e.Type.Kind() != reflect.Ptr {
+		return "json: Unmarshal(non-pointer " + e.Type.String() + ")"
+	}
+	return "json: Unmarshal(nil " + e.Type.String() + ")"
+}
