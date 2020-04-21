@@ -50,3 +50,11 @@ func firstCall(i int) error {
 	}
 	return nil
 }
+
+// secondCall makes a call to a third function and wraps any error.
+func secondCall(i int) error {
+	if err := thirdCall(); err != nil {
+		return errors.Wrap(err, "secondCall->thirdCall()")
+	}
+	return nil
+}
