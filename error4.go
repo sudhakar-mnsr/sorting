@@ -71,3 +71,10 @@ func (c *client) BehaviorAsContext() {
 					log.Println("Temporary: Client leaving chat")
 					return
 				}
+
+			default:
+				if err == io.EOF {
+					log.Println("EOF: Client leaving chat")
+					return
+				}
+
