@@ -14,3 +14,10 @@ type client struct {
 	name   string
 	reader *bufio.Reader
 }
+
+// TypeAsContext shows how to check multiple types of possible custom error
+// types that can be returned from the net package.
+func (c *client) TypeAsContext() {
+	for {
+		line, err := c.reader.ReadString('\n')
+		if err != nil {
