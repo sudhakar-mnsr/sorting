@@ -51,3 +51,10 @@ func (c *client) TypeAsContext() {
 		fmt.Println(line)
 	}
 }
+
+
+// temporary is declared to test for the existence of the method coming
+// from the net package.
+type temporary interface {
+	Temporary() bool
+}
