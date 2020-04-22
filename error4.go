@@ -44,3 +44,10 @@ func (c *client) TypeAsContext() {
 					log.Println("EOF: Client leaving chat")
 					return
 				}
+				log.Println("read-routine", err)
+			}
+		}
+
+		fmt.Println(line)
+	}
+}
