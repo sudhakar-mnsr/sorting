@@ -58,3 +58,10 @@ func (c *client) TypeAsContext() {
 type temporary interface {
 	Temporary() bool
 }
+
+// BehaviorAsContext shows how to check for the behavior of an interface
+// that can be returned from the net package.
+func (c *client) BehaviorAsContext() {
+	for {
+		line, err := c.reader.ReadString('\n')
+		if err != nil {
