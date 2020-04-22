@@ -12,6 +12,7 @@ func (c *customError) Error() string {
 }
 
 // fail returns nil values for both return types.
+// for solution see error6_solution.go
 func fail() ([]byte, *customError) {
 	return nil, nil
 }
