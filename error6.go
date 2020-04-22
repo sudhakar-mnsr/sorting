@@ -22,3 +22,9 @@ func fail() ([]byte, *customError) {
 func main() {
 	var err error
 	fmt.Printf("Type of value stored inside the interface: %T\n", err)
+	if _, err = fail(); err != nil {
+		fmt.Printf("Type of value stored inside the interface: %T\n", err)
+	}
+
+	log.Println("No Error")
+}
