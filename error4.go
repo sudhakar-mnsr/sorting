@@ -78,3 +78,11 @@ func (c *client) BehaviorAsContext() {
 					return
 				}
 
+
+				log.Println("read-routine", err)
+			}
+		}
+
+		fmt.Println(line)
+	}
+}
