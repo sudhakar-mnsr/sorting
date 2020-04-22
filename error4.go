@@ -28,3 +28,9 @@ func (c *client) TypeAsContext() {
 					log.Println("Temporary: Client leaving chat")
 					return
 				}
+
+			case *net.AddrError:
+				if !e.Temporary() {
+					log.Println("Temporary: Client leaving chat")
+					return
+				}
