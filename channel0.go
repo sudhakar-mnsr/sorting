@@ -300,3 +300,12 @@ func retryTimeout(ctx context.Context, retryInterval time.Duration, check func(c
 			fmt.Println("work finished successfully")
 			return
 		}
+
+		fmt.Println("check if timeout has expired")
+		if ctx.Err() != nil {
+			fmt.Println("time expired 1 :", ctx.Err())
+			return
+		}
+
+		fmt.Printf("wait %s before trying again\n", retryInterval)
+		t := time.NewTimer(retryInterval)
