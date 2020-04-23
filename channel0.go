@@ -159,3 +159,15 @@ func fanOutSem() {
 
 	g := runtime.GOMAXPROCS(0)
 	sem := make(chan bool, g)
+
+	for e := 0; e < emps; e++ {
+		go func(emp int) {
+			sem <- true
+			{
+				time.Sleep(time.Duration(rand.Intn(200)) * time.Millisecond)
+				ch <- "paper"
+				fmt.Println("employee : sent signal :", emp)
+			}
+			<-sem
+		}(e)
+	}
