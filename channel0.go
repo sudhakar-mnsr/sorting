@@ -220,3 +220,20 @@ func boundedWorkPooling() {
 	time.Sleep(time.Second)
 	fmt.Println("-------------------------------------------------------------")
 }
+
+// drop: You are a manager and you hire a new employee. Your new employee
+// doesn't know immediately what they are expected to do and waits for
+// you to tell them what to do. You prepare the work and send it to them. The
+// amount of time they wait is unknown because you need a guarantee that the
+// work your sending is received by the employee. You won't wait for the
+// employee to take the work if they are not ready to receive it. In that case
+// you drop the work on the floor and try again with the next piece of work.
+func drop() {
+	const cap = 100
+	ch := make(chan string, cap)
+
+	go func() {
+		for p := range ch {
+			fmt.Println("employee : recv'd signal :", p)
+		}
+	}()
