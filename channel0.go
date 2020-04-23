@@ -309,3 +309,14 @@ func retryTimeout(ctx context.Context, retryInterval time.Duration, check func(c
 
 		fmt.Printf("wait %s before trying again\n", retryInterval)
 		t := time.NewTimer(retryInterval)
+
+		select {
+		case <-ctx.Done():
+			fmt.Println("timed expired 2 :", ctx.Err())
+			t.Stop()
+			return
+		case <-t.C:
+			fmt.Println("retry again")
+		}
+	}
+}
