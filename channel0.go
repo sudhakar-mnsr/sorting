@@ -103,3 +103,12 @@ func waitForTask() {
 		p := <-ch
 		fmt.Println("employee : recv'd signal :", p)
 	}()
+
+
+	time.Sleep(time.Duration(rand.Intn(500)) * time.Millisecond)
+	ch <- "paper"
+	fmt.Println("manager : sent signal")
+
+	time.Sleep(time.Second)
+	fmt.Println("-------------------------------------------------------------")
+}
