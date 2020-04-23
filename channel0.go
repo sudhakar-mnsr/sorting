@@ -199,3 +199,14 @@ func boundedWorkPooling() {
 	wg.Add(g)
 
 	ch := make(chan string, g)
+
+
+	for e := 0; e < g; e++ {
+		go func(emp int) {
+			defer wg.Done()
+			for p := range ch {
+				fmt.Printf("employee %d : recv'd signal : %s\n", emp, p)
+			}
+			fmt.Printf("employee %d : recv'd shutdown signal\n", emp)
+		}(e)
+	}
