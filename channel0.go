@@ -183,3 +183,19 @@ func fanOutSem() {
 	time.Sleep(time.Second)
 	fmt.Println("-------------------------------------------------------------")
 }
+
+// boundedWorkPooling: You are a manager and you hire a team of employees. None of
+// the new employees know what they are expected to do and wait for you to
+// provide work. The amount of work that needs to get done is fixed and staged
+// ahead of time. Any given employee can take work and you don't care who it is
+// or what they take. The amount of time you wait on the employees to finish
+// all the work is unknown because you need a guarantee that all the work is
+// finished.
+func boundedWorkPooling() {
+	work := []string{"paper", "paper", "paper", "paper", "paper", 2000: "paper"}
+
+	g := runtime.GOMAXPROCS(0)
+	var wg sync.WaitGroup
+	wg.Add(g)
+
+	ch := make(chan string, g)
