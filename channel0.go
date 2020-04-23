@@ -288,3 +288,15 @@ func cancellation() {
 	time.Sleep(time.Second)
 	fmt.Println("-------------------------------------------------------------")
 }
+
+// retryTimeout: You need to validate if something can be done with no error
+// but it may take time before this is true. You set a retry interval to create
+// a delay before you retry the call and you use the context to set a timeout.
+func retryTimeout(ctx context.Context, retryInterval time.Duration, check func(ctx context.Context) error) {
+
+	for {
+		fmt.Println("perform user check call")
+		if err := check(ctx); err == nil {
+			fmt.Println("work finished successfully")
+			return
+		}
