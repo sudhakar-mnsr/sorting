@@ -90,3 +90,16 @@ func fanOut() {
 	time.Sleep(time.Second)
 	fmt.Println("-------------------------------------------------------------")
 }
+
+// waitForTask: You are a manager and you hire a new employee. Your new
+// employee doesn't know immediately what they are expected to do and waits for
+// you to tell them what to do. You prepare the work and send it to them. The
+// amount of time they wait is unknown because you need a guarantee that the
+// work your sending is received by the employee.
+func waitForTask() {
+	ch := make(chan string)
+
+	go func() {
+		p := <-ch
+		fmt.Println("employee : recv'd signal :", p)
+	}()
