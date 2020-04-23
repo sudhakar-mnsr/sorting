@@ -237,3 +237,12 @@ func drop() {
 			fmt.Println("employee : recv'd signal :", p)
 		}
 	}()
+	const work = 2000
+	for w := 0; w < work; w++ {
+		select {
+		case ch <- "paper":
+			fmt.Println("manager : sent signal :", w)
+		default:
+			fmt.Println("manager : dropped data :", w)
+		}
+	}
