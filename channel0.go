@@ -51,3 +51,11 @@ func waitForResult() {
 		ch <- "paper"
 		fmt.Println("employee : sent signal")
 	}()
+
+
+	p := <-ch
+	fmt.Println("manager : recv'd signal :", p)
+
+	time.Sleep(time.Second)
+	fmt.Println("-------------------------------------------------------------")
+}
