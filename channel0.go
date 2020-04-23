@@ -112,3 +112,21 @@ func waitForTask() {
 	time.Sleep(time.Second)
 	fmt.Println("-------------------------------------------------------------")
 }
+// pooling: You are a manager and you hire a team of employees. None of the new
+// employees know what they are expected to do and wait for you to provide work.
+// When work is provided to the group, any given employee can take it and you
+// don't care who it is. The amount of time you wait for any given employee to
+// take your work is unknown because you need a guarantee that the work your
+// sending is received by an employee.
+func pooling() {
+	ch := make(chan string)
+
+	g := runtime.GOMAXPROCS(0)
+	for e := 0; e < g; e++ {
+		go func(emp int) {
+			for p := range ch {
+				fmt.Printf("employee %d : recv'd signal : %s\n", emp, p)
+			}
+			fmt.Printf("employee %d : recv'd shutdown signal\n", emp)
+		}(e)
+	}
