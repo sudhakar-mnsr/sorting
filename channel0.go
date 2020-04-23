@@ -171,3 +171,15 @@ func fanOutSem() {
 			<-sem
 		}(e)
 	}
+
+
+	for emps > 0 {
+		p := <-ch
+		emps--
+		fmt.Println(p)
+		fmt.Println("manager : recv'd signal :", emps)
+	}
+
+	time.Sleep(time.Second)
+	fmt.Println("-------------------------------------------------------------")
+}
