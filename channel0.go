@@ -210,3 +210,13 @@ func boundedWorkPooling() {
 			fmt.Printf("employee %d : recv'd shutdown signal\n", emp)
 		}(e)
 	}
+
+	for _, wrk := range work {
+		ch <- wrk
+	}
+	close(ch)
+	wg.Wait()
+
+	time.Sleep(time.Second)
+	fmt.Println("-------------------------------------------------------------")
+}
