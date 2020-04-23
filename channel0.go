@@ -130,3 +130,17 @@ func pooling() {
 			fmt.Printf("employee %d : recv'd shutdown signal\n", emp)
 		}(e)
 	}
+
+
+	const work = 100
+	for w := 0; w < work; w++ {
+		ch <- "paper"
+		fmt.Println("manager : sent signal :", w)
+	}
+
+	close(ch)
+	fmt.Println("manager : sent shutdown signal")
+
+	time.Sleep(time.Second)
+	fmt.Println("-------------------------------------------------------------")
+}
