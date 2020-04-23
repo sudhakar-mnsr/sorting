@@ -246,3 +246,11 @@ func drop() {
 			fmt.Println("manager : dropped data :", w)
 		}
 	}
+
+
+	close(ch)
+	fmt.Println("manager : sent shutdown signal")
+
+	time.Sleep(time.Second)
+	fmt.Println("-------------------------------------------------------------")
+}
