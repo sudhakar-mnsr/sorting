@@ -279,3 +279,12 @@ func cancellation() {
 	select {
 	case d := <-ch:
 		fmt.Println("work complete", d)
+
+
+	case <-ctx.Done():
+		fmt.Println("work cancelled")
+	}
+
+	time.Sleep(time.Second)
+	fmt.Println("-------------------------------------------------------------")
+}
