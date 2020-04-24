@@ -22,3 +22,11 @@ const (
 type dbConnection struct {
 	ID int32
 }
+
+// Close implements the io.Closer interface so dbConnection
+// can be managed by the pool. Close performs any resource
+// release management.
+func (dbConn *dbConnection) Close() error {
+	log.Println("Close: Connection", dbConn.ID)
+	return nil
+}
