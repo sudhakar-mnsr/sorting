@@ -17,3 +17,11 @@ type Pool struct {
 	factory   func() (io.Closer, error)
 	closed    bool
 }
+
+// ErrPoolClosed is returned when an Acquire returns on a
+// closed pool.
+var ErrPoolClosed = errors.New("Pool has been closed")
+
+// New creates a pool that manages resources. A pool requires a
+// function that can allocate a new resource and the size of
+// the pool.
