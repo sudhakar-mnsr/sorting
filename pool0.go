@@ -83,3 +83,11 @@ func main() {
 			wg.Done()
 		}(query)
 	}
+
+	// Wait for the goroutines to finish.
+	wg.Wait()
+
+	// Close the pool.
+	log.Println("Shutdown Program.")
+	p.Close()
+}
