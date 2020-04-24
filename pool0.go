@@ -72,3 +72,14 @@ func main() {
 		log.Println(err)
 		return
 	}
+	// Perform queries using connections from the pool.
+	for query := 0; query < maxGoroutines; query++ {
+
+		// Each goroutine needs its own copy of the query
+		// value else they will all be sharing the same query
+		// variable.
+		go func(q int) {
+			performQueries(q, p)
+			wg.Done()
+		}(query)
+	}
