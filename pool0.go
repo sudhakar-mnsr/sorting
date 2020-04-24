@@ -17,3 +17,8 @@ const (
 	maxGoroutines = 25 // the number of routines to use.
 	numPooled     = 2  // number of resources in the pool
 )
+
+// dbConnection simulates a resource to share.
+type dbConnection struct {
+	ID int32
+}
