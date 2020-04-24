@@ -36,3 +36,14 @@ func New(size uint, f func() (io.Closer, error)) (*Pool, error) {
 		resources: make(chan io.Closer, size),
 	}, nil
 }
+
+// Acquire retrieves a resource	from the pool.
+func (p *Pool) Acquire() (io.Closer, error) {
+	select {
+
+	// Check for a free resource.
+	case r, wd := <-p.resources:
+		log.Println("Acquire:", "Shared Resource")
+		if !wd {
+			return nil, ErrPoolClosed
+		}
