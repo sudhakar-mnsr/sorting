@@ -47,3 +47,11 @@ func (p *Pool) Acquire() (io.Closer, error) {
 		if !wd {
 			return nil, ErrPoolClosed
 		}
+		return r, nil
+
+	// Provide a new resource since there are none available.
+	default:
+		log.Println("Acquire:", "New Resource")
+		return p.factory()
+	}
+}
