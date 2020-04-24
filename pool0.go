@@ -30,3 +30,6 @@ func (dbConn *dbConnection) Close() error {
 	log.Println("Close: Connection", dbConn.ID)
 	return nil
 }
+
+// idCounter provides support for giving each connection a unique id.
+var idCounter int32
