@@ -40,3 +40,11 @@ type (
 		Description string   `xml:"description"`
 		Link        string   `xml:"link"`
 	}
+
+	// Image defines the fields associated with the image tag in the RSS document.
+	Image struct {
+		XMLName xml.Name `xml:"image"`
+		URL     string   `xml:"url"`
+		Title   string   `xml:"title"`
+		Link    string   `xml:"link"`
+	}
