@@ -27,3 +27,9 @@ func (CNN) Search(uid string, term string, found chan<- []Result) {
 			log.Println("ERROR: ", err)
 			continue
 		}
+
+		results = append(results, res...)
+	}
+
+	found <- results
+}
