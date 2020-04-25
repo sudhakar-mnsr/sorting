@@ -22,3 +22,10 @@ const (
 
 var cache = gc.New(expiration, cleanup)
 
+
+var fetch = struct {
+	sync.Mutex
+	m map[string]*sync.Mutex
+}{
+	m: make(map[string]*sync.Mutex),
+}
