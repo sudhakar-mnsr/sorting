@@ -48,3 +48,17 @@ type (
 		Title   string   `xml:"title"`
 		Link    string   `xml:"link"`
 	}
+
+	// Channel defines the fields associated with the channel tag in the RSS document.
+	Channel struct {
+		XMLName xml.Name `xml:"channel"`
+		Image   Image    `xml:"image"`
+		Items   []Item   `xml:"item"`
+	}
+
+	// Document defines the fields associated with the RSS document.
+	Document struct {
+		XMLName xml.Name `xml:"rss"`
+		Channel Channel  `xml:"channel"`
+	}
+)
