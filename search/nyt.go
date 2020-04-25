@@ -16,3 +16,14 @@ type NYT struct{}
 func NewNYT() Searcher {
 	return NYT{}
 }
+
+// Search performs a search against the NYT RSS feeds.
+func (NYT) Search(uid string, term string, found chan<- []Result) {
+	results := []Result{}
+
+	for _, feed := range nytFeeds {
+		res, err := rssSearch(uid, term, "NYT", feed)
+		if err != nil {
+			log.Println("ERROR: ", err)
+			continue
+		}
