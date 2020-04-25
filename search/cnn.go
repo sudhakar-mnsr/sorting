@@ -11,3 +11,8 @@ var cnnFeeds = []string{
 
 // CNN provides support for CNN searches.
 type CNN struct{}
+
+// NewCNN returns a CNN Searcher value.
+func NewCNN() Searcher {
+	return CNN{}
+}
