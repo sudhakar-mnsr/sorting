@@ -11,3 +11,8 @@ var nytFeeds = []string{
 
 // NYT provides support for NYT searches.
 type NYT struct{}
+
+// NewNYT returns a NYT Searcher value.
+func NewNYT() Searcher {
+	return NYT{}
+}
