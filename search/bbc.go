@@ -11,3 +11,8 @@ var bbcFeeds = []string{
 
 // BBC provides support for BBC searches.
 type BBC struct{}
+
+// NewBBC returns a BBC Searcher value.
+func NewBBC() Searcher {
+	return BBC{}
+}
