@@ -16,3 +16,14 @@ type BBC struct{}
 func NewBBC() Searcher {
 	return BBC{}
 }
+
+// Search performs a search against the CNN RSS feeds.
+func (BBC) Search(uid string, term string, found chan<- []Result) {
+	results := []Result{}
+
+	for _, feed := range bbcFeeds {
+		res, err := rssSearch(uid, term, "BBC", feed)
+		if err != nil {
+			log.Println("ERROR: ", err)
+			continue
+		}
