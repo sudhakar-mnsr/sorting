@@ -76,3 +76,38 @@ func rssSearch(uid, term, engine, uri string) ([]Result, error) {
 		}
 	}
 	fetch.Unlock()
+
+	var d Document
+	mu.Lock()
+	{
+		// Look in the cache.
+		v, found := cache.Get(uri)
+
+		// Based on the cache lookup determine what to do.
+		switch {
+		case found:
+			d = v.(Document)
+
+		default:
+
+			// Pull down the rss feed.
+			resp, err := http.Get(uri)
+			if err != nil {
+				return []Result{}, err
+			}
+
+			// Schedule the close of the response body.
+			defer resp.Body.Close()
+
+			// Decode the results into a document.
+			if err := xml.NewDecoder(resp.Body).Decode(&d); err != nil {
+				return []Result{}, err
+			}
+
+			// Save this document into the cache.
+			cache.Set(uri, d, expiration)
+
+			log.Println("reloaded cache", uri)
+		}
+	}
+	mu.Unlock()
