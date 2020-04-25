@@ -62,3 +62,17 @@ type (
 		Channel Channel  `xml:"channel"`
 	}
 )
+
+// rssSearch is used against any RSS feeds.
+func rssSearch(uid, term, engine, uri string) ([]Result, error) {
+	var mu *sync.Mutex
+	fetch.Lock()
+	{
+		var found bool
+		mu, found = fetch.m[uri]
+		if !found {
+			mu = &sync.Mutex{}
+			fetch.m[uri] = mu
+		}
+	}
+	fetch.Unlock()
