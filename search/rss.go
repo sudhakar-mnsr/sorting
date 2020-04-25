@@ -29,3 +29,14 @@ var fetch = struct {
 }{
 	m: make(map[string]*sync.Mutex),
 }
+
+type (
+
+	// Item defines the fields associated with the item tag in the RSS document.
+	Item struct {
+		XMLName     xml.Name `xml:"item"`
+		PubDate     string   `xml:"pubDate"`
+		Title       string   `xml:"title"`
+		Description string   `xml:"description"`
+		Link        string   `xml:"link"`
+	}
