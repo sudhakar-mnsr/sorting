@@ -16,3 +16,14 @@ type CNN struct{}
 func NewCNN() Searcher {
 	return CNN{}
 }
+
+// Search performs a search against the CNN RSS feeds.
+func (CNN) Search(uid string, term string, found chan<- []Result) {
+	results := []Result{}
+
+	for _, feed := range cnnFeeds {
+		res, err := rssSearch(uid, term, "CNN", feed)
+		if err != nil {
+			log.Println("ERROR: ", err)
+			continue
+		}
