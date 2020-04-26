@@ -34,3 +34,13 @@ func (r *Result) ContentHTML() template.HTML {
 type Searcher interface {
 	Search(uid string, term string, found chan<- []Result)
 }
+
+// Submit uses goroutines and channels to perform a search against the
+// feeds concurrently.
+func Submit(uid string, options Options) []Result {
+	searchers := make(map[string]Searcher)
+
+	// Create a CNN Searcher if checked.
+	if options.CNN {
+		searchers["cnn"] = NewCNN()
+	}
