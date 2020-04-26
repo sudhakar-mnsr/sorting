@@ -54,3 +54,11 @@ func Submit(uid string, options Options) []Result {
 	if options.BBC {
 		searchers["bbc"] = NewBBC()
 	}
+
+	results := make(chan []Result)
+
+	// Perform the searches concurrently. Using a map because
+	// it returns the searchers in a random order every time.
+	for _, searcher := range searchers {
+		go searcher.Search(uid, options.Term, results)
+	}
