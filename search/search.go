@@ -18,3 +18,13 @@ type Result struct {
 	Link    string
 	Content string
 }
+
+// TitleHTML fixes encoding issues.
+func (r *Result) TitleHTML() template.HTML {
+	return template.HTML(r.Title)
+}
+
+// ContentHTML fixes encoding issues.
+func (r *Result) ContentHTML() template.HTML {
+	return template.HTML(r.Content)
+}
