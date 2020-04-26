@@ -62,3 +62,17 @@ func Submit(uid string, options Options) []Result {
 	for _, searcher := range searchers {
 		go searcher.Search(uid, options.Term, results)
 	}
+	var final []Result
+
+	// Wait for the results to come back.
+	for search := 0; search < len(searchers); search++ {
+
+		// If we just want the first result, don't wait any longer by
+		// concurrently discarding the remaining results.
+		// Failing to do so will leave the Searchers blocked forever.
+		if options.First && (search > 0 && len(final) > 0) {
+			go func() {
+				<-results
+			}()
+			continue
+		}
