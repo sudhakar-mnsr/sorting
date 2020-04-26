@@ -76,3 +76,14 @@ func Submit(uid string, options Options) []Result {
 			}()
 			continue
 		}
+
+
+		// Wait to recieve results.
+		found := <-results
+
+		// Save the results to the final slice.
+		final = append(final, found...)
+	}
+
+	return final
+}
