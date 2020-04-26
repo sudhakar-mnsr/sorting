@@ -25,3 +25,13 @@ func example(b1, b2, b3 bool, i uint8) {
 	main.example(true, false, true, 25)
 	// Stack trace
 	main.example(0xc019010001)
+
+	// Word value (0xc019010001)
+	Bits    Binary      Hex   Value
+	00-07   0000 0001   01    true
+	08-15   0000 0000   00    false
+	16-23   0000 0001   01    true
+	24-31   0001 1001   19    25
+	Use `go build -gcflags -S` to map the PC offset values, +0x39 and +0x29 for
+	each function call.
+*/
