@@ -44,3 +44,13 @@ func Submit(uid string, options Options) []Result {
 	if options.CNN {
 		searchers["cnn"] = NewCNN()
 	}
+
+	// Create a NYT Searcher if checked.
+	if options.NYT {
+		searchers["nyt"] = NewNYT()
+	}
+
+	// Create a BBC Searcher if checked.
+	if options.BBC {
+		searchers["bbc"] = NewBBC()
+	}
