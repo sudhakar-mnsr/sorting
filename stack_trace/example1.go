@@ -19,3 +19,15 @@ func example(slice []string, str string, i int) {
 	main.main()
 		stack_trace/example1/example1.go:8 +0x72
 	--------------------------------------------------------------------------------
+
+	// Declaration
+	main.example(slice []string, str string, i int)
+	// Call
+	main.example(0xc000042748, 0x2, 0x4, 0x106abae, 0x5, 0xa)
+	// Stack trace
+	main.example(0xc000042748, 0x2, 0x4, 0x106abae, 0x5, 0xa)
+	// Values
+	Slice Value:   0xc000042748, 0x2, 0x4
+	String Value:  0x106abae, 0x5
+	Integer Value: 0xa
+*/
