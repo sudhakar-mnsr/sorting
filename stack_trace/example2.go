@@ -18,3 +18,10 @@ func example(b1, b2, b3 bool, i uint8) {
 	main.main()
 		stack_trace/example2/example2.go:8 +0x29
 --------------------------------------------------------------------------------
+
+	// Declaration
+	main.example(b1, b2, b3 bool, i uint8)
+	// Call
+	main.example(true, false, true, 25)
+	// Stack trace
+	main.example(0xc019010001)
