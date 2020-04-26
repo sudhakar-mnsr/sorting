@@ -10,3 +10,11 @@ type Options struct {
 	BBC   bool
 	First bool
 }
+
+// Result represents a search result that was found.
+type Result struct {
+	Engine  string
+	Title   string
+	Link    string
+	Content string
+}
