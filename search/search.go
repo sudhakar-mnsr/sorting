@@ -28,3 +28,9 @@ func (r *Result) TitleHTML() template.HTML {
 func (r *Result) ContentHTML() template.HTML {
 	return template.HTML(r.Content)
 }
+
+// Searcher declares an interface used to leverage different
+// search engines to find results.
+type Searcher interface {
+	Search(uid string, term string, found chan<- []Result)
+}
