@@ -20,3 +20,9 @@ func (t *transport) RoundTrip(req *http.Request) (*http.Response, error) {
 	t.current = req
 	return http.DefaultTransport.RoundTrip(req)
 }
+
+// GotConn prints whether the connection has been used previously
+// for the current request.
+func (t *transport) GotConn(info httptrace.GotConnInfo) {
+	log.Printf("Connection reused for %v? %v\n", t.current.URL, info.Reused)
+}
