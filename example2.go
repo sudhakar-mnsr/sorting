@@ -41,3 +41,10 @@ func main() {
 	trace := httptrace.ClientTrace{
 		GotConn: t.GotConn,
 	}
+	// Bind to the request context this new context for tracing.
+	req = req.WithContext(httptrace.WithClientTrace(req.Context(), &trace))
+
+	// Create a client value with our transport.
+	client := http.Client{
+		Transport: &t,
+	}
