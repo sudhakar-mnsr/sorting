@@ -13,3 +13,10 @@ import (
 type transport struct {
 	current *http.Request
 }
+
+// RoundTrip wraps http.DefaultTransport.RoundTrip to keep track
+// of the current request.
+func (t *transport) RoundTrip(req *http.Request) (*http.Response, error) {
+	t.current = req
+	return http.DefaultTransport.RoundTrip(req)
+}
