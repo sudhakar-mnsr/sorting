@@ -21,3 +21,19 @@ import (
 
 // data represents a set of bytes to process.
 var data []byte
+
+// init creates a data for processing.
+func init() {
+	f, err := os.Open("data.bytes")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+
+	data, err = ioutil.ReadAll(f)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Bytes", len(data))
+}
