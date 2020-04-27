@@ -38,3 +38,7 @@ func main() {
 		ConnectDone: func(network, addr string, err error) {
 			log.Printf("Connect Done: %s, %s, %v\n", network, addr, err)
 		},
+		WroteRequest: func(wri httptrace.WroteRequestInfo) {
+			log.Printf("Wrote Request Info: %+v\n", wri)
+		},
+	}
