@@ -37,3 +37,21 @@ func init() {
 
 	fmt.Println("Bytes", len(data))
 }
+
+// TestLatency runs a single stream so we can look at
+// blocking profiles for different buffer sizes.
+func TestLatency(t *testing.T) {
+	bufSize := 100
+
+	fmt.Println("BufSize:", bufSize)
+	stream(bufSize)
+}
+
+// TestLatencies provides a test to profile and trace channel latencies
+// with a little data science sprinkled in.
+func TestLatencies(t *testing.T) {
+	var bufSize int
+	var count int
+	var first time.Duration
+
+	pts := make(plotter.XYs, 20)
