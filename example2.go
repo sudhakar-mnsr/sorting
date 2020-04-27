@@ -48,3 +48,10 @@ func main() {
 	client := http.Client{
 		Transport: &t,
 	}
+	// Make the request call and get the tracing informaion.
+	// The program will follow the redirect of google.com to
+	// www.google.com and will output:
+	if _, err := client.Do(req); err != nil {
+		log.Fatal(err)
+	}
+}
