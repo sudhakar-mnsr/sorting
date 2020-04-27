@@ -92,3 +92,21 @@ func TestLatencies(t *testing.T) {
 	// Make the plot of latencies.
 	makePlot(pts)
 }
+
+// stream performs the moving of the data stream from
+// one goroutine to the other.
+func stream(bufSize int) time.Duration {
+
+	// Create WaitGroup and channels.
+	var wg sync.WaitGroup
+	ch := make(chan int, bufSize)
+
+	// Capture the reader for the input data.
+	data := input()
+
+	// Create the receiver goroutine.
+	wg.Add(1)
+	go func() {
+		recv(ch)
+		wg.Done()
+	}()
