@@ -8,3 +8,11 @@ import (
 	"net/http"
 	"net/http/httptrace"
 )
+
+func main() {
+
+	// Create a new request for the call.
+	req, err := http.NewRequest("GET", "http://goinggo.net", nil)
+	if err != nil {
+		log.Fatalln(err)
+	}
