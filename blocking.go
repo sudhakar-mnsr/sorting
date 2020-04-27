@@ -74,3 +74,21 @@ func TestLatencies(t *testing.T) {
 		pts[count].X = float64(bufSize)
 		pts[count].Y = dec
 		count++
+
+
+		// Want to look at a single buffer increment.
+		if bufSize < 10 {
+			bufSize++
+			continue
+		}
+
+		// Increment by 10 moving forward.
+		if bufSize == 100 {
+			break
+		}
+		bufSize = bufSize + 10
+	}
+
+	// Make the plot of latencies.
+	makePlot(pts)
+}
