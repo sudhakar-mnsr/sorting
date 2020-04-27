@@ -24,3 +24,10 @@ func main() {
 		GotConn: func(connInfo httptrace.GotConnInfo) {
 			log.Printf("Got Conn: %+v\n", connInfo)
 		},
+
+		DNSStart: func(dnsInfo httptrace.DNSStartInfo) {
+			log.Printf("DNS Start Info: %+v\n", dnsInfo)
+		},
+		DNSDone: func(dnsInfo httptrace.DNSDoneInfo) {
+			log.Printf("DNS Done Info: %+v\n", dnsInfo)
+		},
