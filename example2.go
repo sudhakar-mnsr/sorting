@@ -26,3 +26,11 @@ func (t *transport) RoundTrip(req *http.Request) (*http.Response, error) {
 func (t *transport) GotConn(info httptrace.GotConnInfo) {
 	log.Printf("Connection reused for %v? %v\n", t.current.URL, info.Reused)
 }
+
+func main() {
+
+	// Create a new request for the call.
+	req, err := http.NewRequest("GET", "https://google.com", nil)
+	if err != nil {
+		log.Fatalln(err)
+	}
