@@ -55,3 +55,13 @@ func TestLatencies(t *testing.T) {
 	var first time.Duration
 
 	pts := make(plotter.XYs, 20)
+	for {
+
+		// Perform a stream with specified buffer size.
+		since := stream(bufSize)
+
+		// Calculate how long this took and the percent
+		// of different from the unbuffered channel.
+		if bufSize == 0 {
+			first = since
+		}
