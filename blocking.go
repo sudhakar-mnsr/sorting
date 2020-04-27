@@ -125,3 +125,18 @@ func stream(bufSize int) time.Duration {
 	// Calculate how long the send took.
 	return time.Since(st)
 }
+
+// input returns a reader that can be used to read a stream
+// of bytes.
+func input() io.Reader {
+	return bytes.NewBuffer(data)
+}
+
+// recv waits for bytes and adds them up.
+func recv(ch chan int) {
+	var total int
+
+	for v := range ch {
+		total = total + v
+	}
+}
