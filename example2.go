@@ -34,3 +34,10 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	// Create the transport value we are binding event to.
+	var t transport
+
+	// Create a ClientTrace value for the events we care about.
+	trace := httptrace.ClientTrace{
+		GotConn: t.GotConn,
+	}
