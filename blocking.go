@@ -110,3 +110,18 @@ func stream(bufSize int) time.Duration {
 		recv(ch)
 		wg.Done()
 	}()
+
+	// Start the clock.
+	st := time.Now()
+
+	// Send all the data to the receiving goroutine.
+	send(data, ch)
+
+	// Close the channel and wait for the receiving
+	// goroutine to terminate.
+	close(ch)
+	wg.Wait()
+
+	// Calculate how long the send took.
+	return time.Since(st)
+}
