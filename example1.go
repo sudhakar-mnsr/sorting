@@ -31,3 +31,10 @@ func main() {
 		DNSDone: func(dnsInfo httptrace.DNSDoneInfo) {
 			log.Printf("DNS Done Info: %+v\n", dnsInfo)
 		},
+
+		ConnectStart: func(network, addr string) {
+			log.Printf("Connect Start: %s, %s\n", network, addr)
+		},
+		ConnectDone: func(network, addr string, err error) {
+			log.Printf("Connect Done: %s, %s, %v\n", network, addr, err)
+		},
