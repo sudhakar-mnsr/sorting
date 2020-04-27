@@ -16,3 +16,11 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	// Create a ClientTrace value for the events we care about.
+	trace := httptrace.ClientTrace{
+		GetConn: func(hostPort string) {
+			log.Printf("Get Conn: %s\n", hostPort)
+		},
+		GotConn: func(connInfo httptrace.GotConnInfo) {
+			log.Printf("Got Conn: %+v\n", connInfo)
+		},
