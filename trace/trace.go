@@ -82,3 +82,18 @@ func freq(topic string, docs []string) int {
 			log.Printf("Decoding Document [%s] : ERROR : %v", doc, err)
 			return 0
 		}
+
+		for _, item := range d.Channel.Items {
+			if strings.Contains(item.Title, topic) {
+				found++
+				continue
+			}
+
+			if strings.Contains(item.Description, topic) {
+				found++
+			}
+		}
+	}
+
+	return found
+}
