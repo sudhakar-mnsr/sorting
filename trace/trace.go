@@ -120,3 +120,10 @@ func freqConcurrent(topic string, docs []string) int {
 				return
 			}
 
+			data, err := ioutil.ReadAll(f)
+			if err != nil {
+				f.Close()
+				log.Printf("Reading Document [%s] : ERROR : %v", doc, err)
+				return
+			}
+			f.Close()
