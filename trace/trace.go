@@ -192,3 +192,22 @@ func freqConcurrentSem(topic string, docs []string) int {
 					log.Printf("Decoding Document [%s] : ERROR : %v", doc, err)
 					return
 				}
+
+				for _, item := range d.Channel.Items {
+					if strings.Contains(item.Title, topic) {
+						lFound++
+						continue
+					}
+
+					if strings.Contains(item.Description, topic) {
+						lFound++
+					}
+				}
+			}
+			<-ch
+		}(doc)
+	}
+
+	wg.Wait()
+	return int(found)
+}
