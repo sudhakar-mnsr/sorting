@@ -266,3 +266,13 @@ func freqProcessors(topic string, docs []string) int {
 			}
 		}()
 	}
+
+
+	for _, doc := range docs {
+		ch <- doc
+	}
+	close(ch)
+
+	wg.Wait()
+	return int(found)
+}
