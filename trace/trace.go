@@ -97,3 +97,10 @@ func freq(topic string, docs []string) int {
 
 	return found
 }
+
+func freqConcurrent(topic string, docs []string) int {
+	var found int32
+
+	g := len(docs)
+	var wg sync.WaitGroup
+	wg.Add(g)
