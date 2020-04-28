@@ -150,3 +150,12 @@ func freqConcurrent(topic string, docs []string) int {
 	wg.Wait()
 	return int(found)
 }
+
+func freqConcurrentSem(topic string, docs []string) int {
+	var found int32
+
+	g := len(docs)
+	var wg sync.WaitGroup
+	wg.Add(g)
+
+	ch := make(chan bool, runtime.GOMAXPROCS(0))
