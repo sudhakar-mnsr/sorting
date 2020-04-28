@@ -76,3 +76,9 @@ func freq(topic string, docs []string) int {
 			return 0
 		}
 		f.Close()
+
+		var d document
+		if err := xml.Unmarshal(data, &d); err != nil {
+			log.Printf("Decoding Document [%s] : ERROR : %v", doc, err)
+			return 0
+		}
