@@ -252,3 +252,17 @@ func freqProcessors(topic string, docs []string) int {
 					return
 				}
 
+
+				for _, item := range d.Channel.Items {
+					if strings.Contains(item.Title, topic) {
+						lFound++
+						continue
+					}
+
+					if strings.Contains(item.Description, topic) {
+						lFound++
+					}
+				}
+			}
+		}()
+	}
