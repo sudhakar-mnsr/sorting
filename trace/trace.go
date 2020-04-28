@@ -68,3 +68,11 @@ func freq(topic string, docs []string) int {
 			log.Printf("Opening Document [%s] : ERROR : %v", doc, err)
 			return 0
 		}
+
+		data, err := ioutil.ReadAll(f)
+		if err != nil {
+			f.Close()
+			log.Printf("Reading Document [%s] : ERROR : %v", doc, err)
+			return 0
+		}
+		f.Close()
