@@ -245,3 +245,10 @@ func freqProcessors(topic string, docs []string) int {
 					return
 				}
 				f.Close()
+
+				var d document
+				if err := xml.Unmarshal(data, &d); err != nil {
+					log.Printf("Decoding Document [%s] : ERROR : %v", doc, err)
+					return
+				}
+
