@@ -405,3 +405,15 @@ func freqActor(topic string, docs []string) int {
 					found++
 					continue
 				}
+
+				if strings.Contains(item.Description, topic) {
+					found++
+				}
+			}
+		}
+		wg.Done()
+	}()
+
+	wg.Wait()
+	return found
+}
