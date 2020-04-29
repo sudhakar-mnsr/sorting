@@ -373,3 +373,11 @@ func freqActor(topic string, docs []string) int {
 		for f := range files {
 			defer f.Close()
 			d, err := ioutil.ReadAll(f)
+			if err != nil {
+				log.Printf("Reading Document [%s] : ERROR : %v", f.Name(), err)
+				break
+			}
+			data <- d
+		}
+		close(data)
+	}()
