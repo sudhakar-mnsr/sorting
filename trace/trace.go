@@ -367,3 +367,9 @@ func freqActor(topic string, docs []string) int {
 		}
 		close(files)
 	}()
+
+	data := make(chan []byte, 100)
+	go func() {
+		for f := range files {
+			defer f.Close()
+			d, err := ioutil.ReadAll(f)
