@@ -317,3 +317,12 @@ func freqTasks(topic string, docs []string) int {
 					}
 					f.Close()
 					reg.End()
+
+
+					reg = trace.StartRegion(ctx, "Unmarshal")
+					var d document
+					if err := xml.Unmarshal(data, &d); err != nil {
+						log.Printf("Decoding Document [%s] : ERROR : %v", doc, err)
+						return
+					}
+					reg.End()
