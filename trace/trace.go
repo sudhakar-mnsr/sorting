@@ -293,3 +293,9 @@ func freqTasks(topic string, docs []string) int {
 				atomic.AddInt32(&found, lFound)
 				wg.Done()
 			}()
+
+			for doc := range ch {
+				func() {
+					file := fmt.Sprintf("%s.xml", doc[:8])
+					ctx, tt := trace.NewTask(context.Background(), doc)
+					defer tt.End()
