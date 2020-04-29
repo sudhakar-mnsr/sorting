@@ -381,3 +381,16 @@ func freqActor(topic string, docs []string) int {
 		}
 		close(data)
 	}()
+
+	rss := make(chan document, 100)
+	go func() {
+		for dt := range data {
+			var d document
+			if err := xml.Unmarshal(dt, &d); err != nil {
+				log.Printf("Decoding Document : ERROR : %v", err)
+				break
+			}
+			rss <- d
+		}
+		close(rss)
+	}()
