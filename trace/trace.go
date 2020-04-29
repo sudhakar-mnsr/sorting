@@ -299,3 +299,11 @@ func freqTasks(topic string, docs []string) int {
 					file := fmt.Sprintf("%s.xml", doc[:8])
 					ctx, tt := trace.NewTask(context.Background(), doc)
 					defer tt.End()
+
+					reg := trace.StartRegion(ctx, "OpenFile")
+					f, err := os.OpenFile(file, os.O_RDONLY, 0)
+					if err != nil {
+						log.Printf("Opening Document [%s] : ERROR : %v", doc, err)
+						return
+					}
+					reg.End()
