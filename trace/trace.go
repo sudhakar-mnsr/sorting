@@ -394,3 +394,14 @@ func freqActor(topic string, docs []string) int {
 		}
 		close(rss)
 	}()
+
+	var wg sync.WaitGroup
+	wg.Add(1)
+	var found int
+	go func() {
+		for d := range rss {
+			for _, item := range d.Channel.Items {
+				if strings.Contains(item.Title, topic) {
+					found++
+					continue
+				}
