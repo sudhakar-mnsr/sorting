@@ -326,3 +326,10 @@ func freqTasks(topic string, docs []string) int {
 						return
 					}
 					reg.End()
+
+					reg = trace.StartRegion(ctx, "Search")
+					for _, item := range d.Channel.Items {
+						if strings.Contains(item.Title, topic) {
+							lFound++
+							continue
+						}
