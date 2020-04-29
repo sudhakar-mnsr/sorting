@@ -307,3 +307,13 @@ func freqTasks(topic string, docs []string) int {
 						return
 					}
 					reg.End()
+
+					reg = trace.StartRegion(ctx, "ReadAll")
+					data, err := ioutil.ReadAll(f)
+					if err != nil {
+						f.Close()
+						log.Printf("Reading Document [%s] : ERROR : %v", doc, err)
+						return
+					}
+					f.Close()
+					reg.End()
