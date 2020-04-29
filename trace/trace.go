@@ -352,3 +352,10 @@ func freqTasks(topic string, docs []string) int {
 	wg.Wait()
 	return int(found)
 }
+
+func freqActor(topic string, docs []string) int {
+	files := make(chan *os.File, 100)
+	go func() {
+		for _, doc := range docs {
+			file := fmt.Sprintf("%s.xml", doc[:8])
+			f, err := os.OpenFile(file, os.O_RDONLY, 0)
