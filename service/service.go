@@ -40,3 +40,11 @@ func Run() {
 		WriteTimeout:   writeTimeout,
 		MaxHeaderBytes: 1 << 20,
 	})
+
+	// Support for shutting down cleanly.
+	go func() {
+
+		// Listen for an interrupt signal from the OS.
+		sigChan := make(chan os.Signal, 1)
+		signal.Notify(sigChan, os.Interrupt)
+		<-sigChan
