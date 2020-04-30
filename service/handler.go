@@ -35,3 +35,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	// Write the final markup as the response.
 	fmt.Fprint(w, string(markup))
 }
+
+// formValues extracts the form data.
+func formValues(r *http.Request) (map[string]interface{}, search.Options) {
+	fv := make(map[string]interface{})
+	var options search.Options
+
+	fv["term"] = r.FormValue("term")
+	options.Term = r.FormValue("term")
