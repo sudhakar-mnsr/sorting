@@ -37,3 +37,12 @@ func loadTemplate(name string, path string) {
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	// Have we processed this file already?
+	if _, exists := views[name]; exists {
+		log.Fatalf("Template %s already in use.", name)
+	}
+
+	// Store the template for use.
+	views[name] = tmpl
+}
