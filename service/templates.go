@@ -31,3 +31,9 @@ func loadTemplate(name string, path string) {
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	// Create a template value for this code.
+	tmpl, err := template.New(name).Parse(string(data))
+	if err != nil {
+		log.Fatalln(err)
+	}
