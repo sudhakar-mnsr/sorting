@@ -48,3 +48,19 @@ func Run() {
 		sigChan := make(chan os.Signal, 1)
 		signal.Notify(sigChan, os.Interrupt)
 		<-sigChan
+
+		// We have been asked to shutdown the server.
+		log.Println("Starting shutdown...")
+		s.Close()
+
+		// For now until I deal with manners handling static files.
+		go func() {
+			time.Sleep(time.Second * 60)
+			log.Println("Killed Service")
+			os.Exit(1)
+		}()
+	}()
+
+	log.Println("Listening on:", host)
+	s.ListenAndServe()
+}
