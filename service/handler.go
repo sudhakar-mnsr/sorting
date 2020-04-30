@@ -64,3 +64,13 @@ func formValues(r *http.Request) (map[string]interface{}, search.Options) {
 	} else {
 		fv["bbc"] = ""
 	}
+
+	if r.FormValue("first") == "on" {
+		fv["first"] = "checked"
+		options.First = true
+	} else {
+		fv["first"] = ""
+	}
+
+	return fv, options
+}
