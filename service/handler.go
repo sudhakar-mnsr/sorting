@@ -22,3 +22,16 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	// Capture all the form values.
 	fv, options := formValues(r)
+
+	// If this is a post, perform a search.
+	var results []search.Result
+	if r.Method == "POST" && options.Term != "" {
+		results = search.Submit(uid, options)
+	}
+
+	// Render the search page.
+	markup := render(fv, results)
+
+	// Write the final markup as the response.
+	fmt.Fprint(w, string(markup))
+}
