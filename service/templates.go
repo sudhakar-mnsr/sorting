@@ -22,3 +22,12 @@ func init() {
 	loadTemplate("search", pwd+"/views/search.html")
 	loadTemplate("results", pwd+"/views/results.html")
 }
+
+
+// loadTemplate reads the specified template file for use.
+func loadTemplate(name string, path string) {
+	// Read the html template file.
+	data, err := ioutil.ReadFile(path)
+	if err != nil {
+		log.Fatalln(err)
+	}
