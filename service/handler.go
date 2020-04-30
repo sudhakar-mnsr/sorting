@@ -84,3 +84,11 @@ func render(fv map[string]interface{}, results []search.Result) []byte {
 		markup := executeTemplate("results", vars)
 		fv["Results"] = template.HTML(string(markup))
 	}
+
+	// Generate the markup for the search template.
+	markup := executeTemplate("search", fv)
+
+	// Generate the final markup with the layout template.
+	vars := map[string]interface{}{"LayoutContent": template.HTML(string(markup))}
+	return executeTemplate("layout", vars)
+}
