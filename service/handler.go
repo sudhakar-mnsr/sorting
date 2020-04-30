@@ -43,6 +43,7 @@ func formValues(r *http.Request) (map[string]interface{}, search.Options) {
 
 	fv["term"] = r.FormValue("term")
 	options.Term = r.FormValue("term")
+
 	if r.FormValue("cnn") == "on" {
 		fv["cnn"] = "checked"
 		options.CNN = true
@@ -50,3 +51,9 @@ func formValues(r *http.Request) (map[string]interface{}, search.Options) {
 		fv["cnn"] = ""
 	}
 
+	if r.FormValue("nyt") == "on" {
+		fv["nyt"] = "checked"
+		options.NYT = true
+	} else {
+		fv["nyt"] = ""
+	}
