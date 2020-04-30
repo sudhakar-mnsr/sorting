@@ -31,3 +31,12 @@ func Run() {
 	host := "0.0.0.0:5000"
 	readTimeout := 10 * time.Second
 	writeTimeout := 31 * time.Second
+
+	// Create a new server and set timeout values.
+	s := manners.NewWithServer(&http.Server{
+		Addr:           host,
+		Handler:        http.DefaultServeMux,
+		ReadTimeout:    readTimeout,
+		WriteTimeout:   writeTimeout,
+		MaxHeaderBytes: 1 << 20,
+	})
