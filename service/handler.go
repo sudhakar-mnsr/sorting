@@ -74,3 +74,13 @@ func formValues(r *http.Request) (map[string]interface{}, search.Options) {
 
 	return fv, options
 }
+
+// render generates the HTML response for this route.
+func render(fv map[string]interface{}, results []search.Result) []byte {
+
+	// Generate the markup for the results template.
+	if results != nil {
+		vars := map[string]interface{}{"Items": results}
+		markup := executeTemplate("results", vars)
+		fv["Results"] = template.HTML(string(markup))
+	}
