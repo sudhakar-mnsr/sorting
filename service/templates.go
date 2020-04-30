@@ -46,3 +46,14 @@ func loadTemplate(name string, path string) {
 	// Store the template for use.
 	views[name] = tmpl
 }
+
+// executeTemplate executes the specified template with the specified variables.
+func executeTemplate(name string, vars map[string]interface{}) []byte {
+	markup := new(bytes.Buffer)
+	if err := views[name].Execute(markup, vars); err != nil {
+		log.Println(err)
+		return []byte("Error Processing Template")
+	}
+
+	return markup.Bytes()
+}
