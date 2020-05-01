@@ -92,3 +92,14 @@ func algOne(data []byte, find []byte, repl []byte, output *bytes.Buffer) {
 		output.Write(buf[:n])
 		return
 	}
+
+
+	for {
+
+		// Read in one byte from the input stream.
+		if _, err := io.ReadFull(input, buf[end:]); err != nil {
+
+			// Flush the reset of the bytes we have.
+			output.Write(buf[:end])
+			return
+		}
