@@ -138,3 +138,12 @@ func algTwo(data []byte, find []byte, repl []byte, output *bytes.Buffer) {
 
 	// Create an index variable to match bytes.
 	idx := 0
+
+
+	for {
+
+		// Read a single byte from our input.
+		b, err := input.ReadByte()
+		if err != nil {
+			break
+		}
