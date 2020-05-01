@@ -103,3 +103,16 @@ func algOne(data []byte, find []byte, repl []byte, output *bytes.Buffer) {
 			output.Write(buf[:end])
 			return
 		}
+		// If we have a match, replace the bytes.
+		if bytes.Compare(buf, find) == 0 {
+			output.Write(repl)
+
+			// Read a new initial number of bytes.
+			if n, err := io.ReadFull(input, buf[:end]); err != nil {
+				output.Write(buf[:n])
+				return
+			}
+
+			continue
+		}
+
