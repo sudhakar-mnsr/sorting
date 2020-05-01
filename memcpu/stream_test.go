@@ -22,3 +22,10 @@ func BenchmarkAlgorithmOne(b *testing.B) {
 		algOne(in, find, repl, &output)
 	}
 }
+
+// Capture the time it takes to execute algorithm two.
+func BenchmarkAlgorithmTwo(b *testing.B) {
+	var output bytes.Buffer
+	in := assembleInputStream()
+	find := []byte("elvis")
+	repl := []byte("Elvis")
