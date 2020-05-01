@@ -41,3 +41,13 @@ func assembleInputStream() []byte {
 	}
 	return in
 }
+
+// assembleOutputStream combines all the output into a
+// single stream for comparing.
+func assembleOutputStream() []byte {
+	var out []byte
+	for _, d := range data {
+		out = append(out, d.output...)
+	}
+	return out
+}
