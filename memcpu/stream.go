@@ -73,3 +73,12 @@ func main() {
 	matched = bytes.Compare(out, output.Bytes())
 	fmt.Printf("Matched: %v\nInp: [%s]\nExp: [%s]\nGot: [%s]\n", matched == 0, in, out, output.Bytes())
 }
+
+// algOne is one way to solve the problem.
+func algOne(data []byte, find []byte, repl []byte, output *bytes.Buffer) {
+
+	// Use a bytes Buffer to provide a stream to process.
+	input := bytes.NewBuffer(data)
+
+	// The number of bytes we are looking for.
+	size := len(find)
