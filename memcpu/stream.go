@@ -116,3 +116,11 @@ func algOne(data []byte, find []byte, repl []byte, output *bytes.Buffer) {
 			continue
 		}
 
+
+		// Write the front byte since it has been compared.
+		output.WriteByte(buf[0])
+
+		// Slice that front byte out.
+		copy(buf, buf[1:])
+	}
+}
