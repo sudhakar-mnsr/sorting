@@ -51,3 +51,11 @@ func assembleOutputStream() []byte {
 	}
 	return out
 }
+
+func main() {
+	var output bytes.Buffer
+	in := assembleInputStream()
+	out := assembleOutputStream()
+
+	find := []byte("elvis")
+	repl := []byte("Elvis")
