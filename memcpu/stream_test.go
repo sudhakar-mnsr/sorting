@@ -7,3 +7,10 @@ import (
 	"bytes"
 	"testing"
 )
+
+// Capture the time it takes to execute algorithm one.
+func BenchmarkAlgorithmOne(b *testing.B) {
+	var output bytes.Buffer
+	in := assembleInputStream()
+	find := []byte("elvis")
+	repl := []byte("Elvis")
