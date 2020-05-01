@@ -82,3 +82,13 @@ func algOne(data []byte, find []byte, repl []byte, output *bytes.Buffer) {
 
 	// The number of bytes we are looking for.
 	size := len(find)
+
+	// Declare the buffers we need to process the stream.
+	buf := make([]byte, size)
+	end := size - 1
+
+	// Read in an initial number of bytes we need to get started.
+	if n, err := io.ReadFull(input, buf[:end]); err != nil {
+		output.Write(buf[:n])
+		return
+	}
