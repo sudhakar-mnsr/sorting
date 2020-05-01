@@ -147,3 +147,9 @@ func algTwo(data []byte, find []byte, repl []byte, output *bytes.Buffer) {
 		if err != nil {
 			break
 		}
+
+		// Does this byte match the byte at this offset?
+		if b == find[idx] {
+
+			// It matches so increment the index position.
+			idx++
