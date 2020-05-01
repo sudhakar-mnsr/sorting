@@ -11,3 +11,9 @@ import (
 	"fmt"
 	"io"
 )
+
+// data represents a table of input and expected output.
+var data = []struct {
+	input  []byte
+	output []byte
+}{
