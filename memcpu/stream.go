@@ -17,3 +17,9 @@ var data = []struct {
 	input  []byte
 	output []byte
 }{
+	{[]byte("abc"), []byte("abc")},
+	{[]byte("elvis"), []byte("Elvis")},
+	{[]byte("aElvis"), []byte("aElvis")},
+	{[]byte("abcelvis"), []byte("abcElvis")},
+	{[]byte("eelvis"), []byte("eElvis")},
+	{[]byte("aelvis"), []byte("aElvis")},
