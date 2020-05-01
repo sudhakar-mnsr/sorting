@@ -31,3 +31,13 @@ var data = []struct {
 	{[]byte("elvielvielviselvi1"), []byte("elvielviElviselvi1")},
 	{[]byte("elvielviselvis"), []byte("elviElvisElvis")},
 }
+
+// assembleInputStream combines all the input into a
+// single stream for processing.
+func assembleInputStream() []byte {
+	var in []byte
+	for _, d := range data {
+		in = append(in, d.input...)
+	}
+	return in
+}
