@@ -124,3 +124,17 @@ func algOne(data []byte, find []byte, repl []byte, output *bytes.Buffer) {
 		copy(buf, buf[1:])
 	}
 }
+
+
+// algTwo is a second way to solve the problem.
+// Provided by Tyler Stillwater https://twitter.com/TylerStillwater
+func algTwo(data []byte, find []byte, repl []byte, output *bytes.Buffer) {
+
+	// Use the bytes Reader to provide a stream to process.
+	input := bytes.NewReader(data)
+
+	// The number of bytes we are looking for.
+	size := len(find)
+
+	// Create an index variable to match bytes.
+	idx := 0
