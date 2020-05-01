@@ -14,3 +14,11 @@ func BenchmarkAlgorithmOne(b *testing.B) {
 	in := assembleInputStream()
 	find := []byte("elvis")
 	repl := []byte("Elvis")
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		output.Reset()
+		algOne(in, find, repl, &output)
+	}
+}
