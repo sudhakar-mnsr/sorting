@@ -23,3 +23,11 @@ var data = []struct {
 	{[]byte("abcelvis"), []byte("abcElvis")},
 	{[]byte("eelvis"), []byte("eElvis")},
 	{[]byte("aelvis"), []byte("aElvis")},
+	{[]byte("aabeeeelvis"), []byte("aabeeeElvis")},
+	{[]byte("e l v i s"), []byte("e l v i s")},
+	{[]byte("aa bb e l v i saa"), []byte("aa bb e l v i saa")},
+	{[]byte(" elvi s"), []byte(" elvi s")},
+	{[]byte("elvielvis"), []byte("elviElvis")},
+	{[]byte("elvielvielviselvi1"), []byte("elvielviElviselvi1")},
+	{[]byte("elvielviselvis"), []byte("elviElvisElvis")},
+}
