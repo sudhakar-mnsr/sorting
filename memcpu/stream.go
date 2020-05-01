@@ -153,3 +153,13 @@ func algTwo(data []byte, find []byte, repl []byte, output *bytes.Buffer) {
 
 			// It matches so increment the index position.
 			idx++
+
+			// If every byte has been matched, write
+			// out the replacement.
+			if idx == size {
+				output.Write(repl)
+				idx = 0
+			}
+
+			continue
+		}
