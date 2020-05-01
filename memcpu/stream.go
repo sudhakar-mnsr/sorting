@@ -173,3 +173,15 @@ func algTwo(data []byte, find []byte, repl []byte, output *bytes.Buffer) {
 
 			// Unread the unmatched byte so it can be processed again.
 			input.UnreadByte()
+
+			// Reset the offset to start matching from the beginning.
+			idx = 0
+
+			continue
+		}
+
+		// There was no previous match. Write byte and reset.
+		output.WriteByte(b)
+		idx = 0
+	}
+}
