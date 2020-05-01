@@ -163,3 +163,13 @@ func algTwo(data []byte, find []byte, repl []byte, output *bytes.Buffer) {
 
 			continue
 		}
+
+
+		// Did we have any sort of match on any given byte?
+		if idx != 0 {
+
+			// Write what we've matched up to this point.
+			output.Write(find[:idx])
+
+			// Unread the unmatched byte so it can be processed again.
+			input.UnreadByte()
