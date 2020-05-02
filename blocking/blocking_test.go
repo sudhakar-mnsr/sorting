@@ -29,3 +29,12 @@ func init() {
 		log.Fatal(err)
 	}
 	defer f.Close()
+
+
+	data, err = ioutil.ReadAll(f)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Bytes", len(data))
+}
