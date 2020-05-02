@@ -105,3 +105,13 @@ func stream(bufSize int) time.Duration {
 
 	// Capture the reader for the input data.
 	data := input()
+
+	// Create the receiver goroutine.
+	wg.Add(1)
+	go func() {
+		recv(ch)
+		wg.Done()
+	}()
+
+	// Start the clock.
+	st := time.Now()
