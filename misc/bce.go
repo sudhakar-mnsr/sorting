@@ -19,3 +19,6 @@ func hash64(buffer []byte, seed uint64) uint64 {
 	ptr := buffer
 
 	hash := (seed + k2) * k0
+
+	if len(ptr) >= 32 {
+		v := [4]uint64{hash, hash, hash, hash}
