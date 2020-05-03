@@ -15,3 +15,7 @@ func hash64(buffer []byte, seed uint64) uint64 {
 		k2 = 0x62992FC1
 		k3 = 0x30BC5B29
 	)
+
+	ptr := buffer
+
+	hash := (seed + k2) * k0
