@@ -22,3 +22,7 @@ func hash64(buffer []byte, seed uint64) uint64 {
 
 	if len(ptr) >= 32 {
 		v := [4]uint64{hash, hash, hash, hash}
+
+		for len(ptr) >= 32 {
+			v[0] += binary.LittleEndian.Uint64(ptr) * k0
+			ptr = ptr[8:]
