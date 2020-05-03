@@ -42,3 +42,10 @@ func TestMutexProfile(t *testing.T) {
 	wg.Wait()
 	t.Log("Test Complete")
 }
+
+// writer adds 10 new strings to the slice in random intervals.
+func writer() {
+	for i := 0; i < 10; i++ {
+		rwMutex.Lock()
+		{
+			data = append(data, "A")
