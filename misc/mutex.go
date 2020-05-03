@@ -20,3 +20,10 @@ var (
 func init() {
 	rand.Seed(time.Now().UnixNano())
 }
+
+// TestMutexProfile creates goroutines that will content.
+func TestMutexProfile(t *testing.T) {
+	t.Log("Starting Test")
+
+	var wg sync.WaitGroup
+	wg.Add(200)
