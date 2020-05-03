@@ -60,3 +60,9 @@ func writer() {
 func reader() {
 	for i := 0; i < 10; i++ {
 		rwMutex.RLock()
+		{
+			time.Sleep(time.Duration(rand.Intn(10)) * time.Millisecond)
+		}
+		rwMutex.RUnlock()
+	}
+}
