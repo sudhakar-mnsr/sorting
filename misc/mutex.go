@@ -49,3 +49,9 @@ func writer() {
 		rwMutex.Lock()
 		{
 			data = append(data, "A")
+
+			time.Sleep(time.Duration(rand.Intn(10)) * time.Millisecond)
+		}
+		rwMutex.Unlock()
+	}
+}
