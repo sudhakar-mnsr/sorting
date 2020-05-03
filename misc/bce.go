@@ -41,3 +41,7 @@ func hash64(buffer []byte, seed uint64) uint64 {
 
 	return hash
 }
+
+func rotateRight(v uint64, k uint) uint64 {
+	return (v >> k) | (v << (64 - k))
+}
