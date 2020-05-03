@@ -33,3 +33,9 @@ func TestMutexProfile(t *testing.T) {
 			writer()
 			wg.Done()
 		}()
+
+		go func() {
+			reader()
+			wg.Done()
+		}()
+	}
