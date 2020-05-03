@@ -55,3 +55,8 @@ func writer() {
 		rwMutex.Unlock()
 	}
 }
+
+// reader wakes up and iterates over the data slice.
+func reader() {
+	for i := 0; i < 10; i++ {
+		rwMutex.RLock()
