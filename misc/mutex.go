@@ -15,3 +15,8 @@ var (
 	// rwMutex is used to define a critical section of code.
 	rwMutex sync.RWMutex
 )
+
+// init is called prior to main.
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
