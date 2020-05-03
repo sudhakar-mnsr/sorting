@@ -39,3 +39,6 @@ func TestMutexProfile(t *testing.T) {
 			wg.Done()
 		}()
 	}
+	wg.Wait()
+	t.Log("Test Complete")
+}
