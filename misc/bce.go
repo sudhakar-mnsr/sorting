@@ -32,3 +32,6 @@ func hash64(buffer []byte, seed uint64) uint64 {
 			v[1] = rotateRight(v[1], 29) + v[3]
 			v[2] += binary.LittleEndian.Uint64(ptr) * k2
 			ptr = ptr[8:]
+			v[2] = rotateRight(v[2], 29) + v[0]
+			v[3] += binary.LittleEndian.Uint64(ptr) * k3
+			ptr = ptr[8:]
