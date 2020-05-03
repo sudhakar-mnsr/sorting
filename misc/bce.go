@@ -7,3 +7,11 @@ package bce
 import "encoding/binary"
 
 // go build -gcflags -d=ssa/check_bce/debug=1
+
+func hash64(buffer []byte, seed uint64) uint64 {
+	const (
+		k0 = 0xD6D018F5
+		k1 = 0xA2AA033B
+		k2 = 0x62992FC1
+		k3 = 0x30BC5B29
+	)
