@@ -14,3 +14,9 @@
 		front int
 		end   int
 	}
+
+	// New returns a queue with a set capacity.
+	func New(cap int) (*Queue, error)
+	// Enqueue inserts data into the queue if there
+	// is available capacity.
+	func (q *Queue) Enqueue(data *Data) error
