@@ -20,3 +20,10 @@
 	// Enqueue inserts data into the queue if there
 	// is available capacity.
 	func (q *Queue) Enqueue(data *Data) error
+
+	// Dequeue removes data into the queue if data exists.
+	func (q *Queue) Dequeue() (*Data, error)
+	// Operate accepts a function that takes data and calls
+	// the specified function for every piece of data found.
+	func (q *Queue) Operate(f func(d *Data) error) error
+*/
